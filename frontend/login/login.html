@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="">
+        <script src="login.js" defer></script>
+    </head>
+    <body>
+        <h1>Login</h1>
+        <form id="loginForm">
+            <label for="usernameInput">Username</label>
+            <input id="usernameInput" type="text">
+            <br>
+            <label for="passwordInput">Password</label>
+            <input id="passwordInput" type="password">
+            <br>
+            <input type="submit" id="loginSubmit" value="login">
+            <button type="button" onclick="location.href='./register.html'">register</button>
+            <br>
+            <!-- Forgot username -->
+            <a href="./forgotUsername.html" style="text-decoration: none;"><span>Forgot username?</span></a>
+            <br>
+            <!-- Forgot password -->
+            <a href="./forgotPassword.html" style="text-decoration: none;"><span>Forgot password?</span></a>
+
+        </form>
+    </body>
+</html>
