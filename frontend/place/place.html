@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Place</title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, maximum-scale=1.0, user-scalable=yes">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <header id="header">
+        <div class="topic">
+            <h1><b>Place</b></h1>
+            <P>DESCRIPTION if need</P>
+        </div>
+
+        <div id="navArea">
+            <nav>
+                <div class="menuInner">
+                    <ul>
+                        <li><a href="aaa"><img src="img/Voxmix_text_500_300_px.png" alt="img"></a></li>
+                        <li><a href="aaa">Top</a></li>
+                        <li><a href="eSeeProject/culture/index.html">Culture</a></li>
+                        <li><a href="C:\Users\takeh\Documents\school\class\CS\cis444\HW\eSDeeProject\eevent\index.html">Event</a></li>
+                        <li><a href="eSeeProject/food/index.html">Food</a></li>
+                        <li><a href="eSeeProject/place/index.html">Place</a></li>
+                        <li><a href="aaa">About us</a></li>
+                        <li><a href="aaa">Setting</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+
+            <div class="toggle_btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div id="mask"></div>
+        </div>
+        
+    </header>
+
+    <main>
+        <!-- 投稿ボタン -->
+         <!-- Post button -->
+        <button id="postButton">Post</button>
+
+        <!-- 投稿フォーム用のモーダル -->
+         <!-- Modal for the post form -->
+        <div id="postModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>New Post</h2>
+                <form id="postForm" action="">
+                    <label for="postText">Text:</label>
+                    <textarea id="postText" rows="4" cols="50" placeholder="Enter your post here..."></textarea><br>
+
+                    <label for="postImage">Image:</label>
+                    <input type="file" id="postImage"><br><br>
+
+                    <button type="submit">Submit Post</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- 返信フォーム用のモーダル -->
+         <!-- Modal for the reply form -->
+        <div id="replyModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Reply to Post</h2>
+                <form id="replyForm" action="">
+                    <label for="replyText">Reply:</label>
+                    <textarea id="replyText" rows="4" cols="50" placeholder="Enter your reply here..."></textarea><br>
+                    <button type="submit">Submit Reply</button>
+                </form>
+            </div>
+        </div>
+
+        <section id="postsSection"></section>
+    </main>
+</body>
+
+</html>
