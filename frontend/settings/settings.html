@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <Title>Settings</Title>
+        <meta charset='UTF-8'name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="settings.css">
+    </head>
+    <body>
+        <script src="settings.js"></script>
+        <header>
+            <img src="/./eSDee_logo/lightmode.png" alt="San Diego Logo">
+            <div class="'title-div">
+             <h1 >San Diego</h1> 
+            </div>
+            </header>
+        <section class="settings-section">
+            <nav>
+                <ul>
+                    <li><a href="#"> My profile</a></li>
+                    <li><a href="#"> Sign out</a></li>
+                </ul>
+            </nav>
+            <div class="content-section">
+                <p> Username: <span id="username-display">John Doe </span>
+                    <input type="text" id="username-input" class="edit-mode">
+                </p>
+                <p> Password: <span id="password-display">****** </span>
+                    <input type="password" id="password-input" class="edit-mode">
+                </p>
+                <button class="edit-button" id="edit-button" onclick="enableEdit()">Update settings</button>
+
+                <div class="edit-actions">
+                    <button onclick="saveChanges()">Update</button>
+                    <button onclick="cancelEdit()">Cancel</button>
+                </div>
+
+            </div>
+        </section>
+        <footer>
+            <p><a href="#">About us</a></p>
+        </footer>
+    </body>
+</html>
