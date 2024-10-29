@@ -7,39 +7,59 @@
         <script src="register.js" defer></script>
     </head>
     <body>
-        <h1>Register</h1>
-        <form id="registerForm">
-            <label for="emailInput">email</label>
-            <input id="emailInput" type="email">
-            <br>
-            <label for="emailInput2">verify email</label>
-            <input id="emailInput2" type="email">
-            <br>
-            <label for="usernameInput">username</label>
-            <input id="usernameInput" type="text">
-            <br>
-            <label for="usernameInput2">verify username</label>
-            <input id="usernameInput2" type="text">
-            <br>
-            <label for="passwordInput">password</label>
-            <input id="passwordInput" type="password">
-            <br>
-            <label for="passwordInput2">verify password</label>
-            <input id="passwordInput2" type="password">
-            <br>
-            <label for="firstNameInput">first name</label>
-            <input id="firstNameInput" type="text">
-            <br>
-            <label for="lastNameInput">last name</label>
-            <input id="lastNameInput" type="text">
-            <br>
-            <!-- reconsider using birthdate instead of age-->
-            <label for="ageInput">age</label>
-            <input id="ageInput" type="text">
-            <br>
-            <input type="submit" value="register">
-            <br>
-            <a href="./login.html" style="text-decoration: none;"><span>Return to login</span></a>
-        </form>
+        <header>
+            <h1>
+                <img class="icon" src="../../esdeeimgs/esdeebrowsericon.png">
+                    eSDee     
+                <img class="icon" src="../../esdeeimgs/pinkshell.png">
+                <br>
+                <img class="headerimage" src="../../esdeeimgs/waves.png">
+            </h1>
+        </header>
+        <div id="register-card">
+            <h2>Register</h2>
+            <form id="registerForm">
+                <div id="username-container" class="input-container">
+                    <label for="usernameInput">Username</label>
+                    <input id="usernameInput" class="input-field" type="text">
+                </div>
+                <div id="password-container" class="input-container">
+                    <label for="passwordInput">Password</label>
+                    <input id="passwordInput" class="input-field" type="password">
+                </div>
+                <div id="password-2-container" class="input-container">
+                    <label for="passwordInput2">Verify password</label>
+                    <input id="passwordInput2" class="input-field" type="password">
+                </div>
+                <div id="email-container" class="input-container">
+                    <label for="emailInput">Email</label>
+                    <input id="emailInput" class="input-field" type="email">
+                </div>
+                <div id="email-verify-container"  class="input-container">
+                    <label for="emailInput2">Verify email</label>
+                    <input id="emailInput2" class="input-field" type="email">
+                </div>
+                <div id="first-name-container" class="input-container">
+                    <label for="firstNameInput">First name</label>
+                    <input id="firstNameInput" class="input-field" type="text">
+                </div>
+                <div id="last-name-container" class="input-container">
+                    <label for="lastNameInput">Last name</label>
+                    <input id="lastNameInput" class="input-field" type="text">
+                </div>
+                <div id="age-container" class="input-container">
+                    <!-- reconsider using birthdate instead of age-->
+                    <label for="ageInput">Age</label>
+                    <input id="ageInput" class="input-field" type="text">
+                </div>
+                <div id="button-container">
+                    <input type="submit" id="registerSubmit" value="register">
+                    <a href="../login/login.html" class="return-login"><span>Return to login</span></a>
+                </div>
+            </form>
+        </div>
+        <footer>
+            <img class="footerimage" src="../../esdeeimgs/esdeefooter.png">
+        </footer>
     </body>
 </html>
