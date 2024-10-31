@@ -88,3 +88,10 @@ function handleLikeButtonClick(event) {
         likeCountSpan.textContent = ` ${likeCount} Likes`;
     }
 }
+
+// Handle "Report" button click
+function handleReportButtonClick(event) {
+    if (event.target.classList.contains("report-button")) {
+        alert("Your report has been sent to the administrator or the database.");
+    }
+}
