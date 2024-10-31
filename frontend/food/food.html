@@ -5,7 +5,7 @@
     <title>Food</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" src="../../eSDee-logo/darkmode.png">
+    <link rel="icon" href="../../eSDee-logo/darkmode.png">
     <link rel="stylesheet" type="text/css" href="food.css">
     <script src="functions.js" defer></script>
     <script src="eventsHandlers.js" defer></script>
@@ -66,7 +66,7 @@
             <div class="modal-content">
                 <span class="close postClose">&times;</span>
                 <h2>New Post</h2>
-                <form id="postForm" action="">
+                <form id="postForm">
                     <label for="postText">Text:</label>
                     <textarea id="postText" rows="4" cols="50" placeholder="Enter your post here..."></textarea><br>
 
@@ -87,7 +87,7 @@
             <div class="modal-content">
                 <span class="close replyClose">&times;</span>
                 <h2>Reply to Post</h2>
-                <form id="replyForm" action="">
+                <form id="replyForm">
                     <label for="replyText">Reply:</label>
                     <textarea id="replyText" rows="4" cols="50" placeholder="Enter your reply here..."></textarea><br>
 
@@ -105,10 +105,11 @@
         <section id="postsSection"></section>
 
     </main>
-</body>
 
-<footer>
-    <img class="footerimage" src="../../esdeeimgs/esdeefooter.png">
-</footer>
+    <footer>
+        <img class="footerimage" src="../../esdeeimgs/esdeefooter.png" alt="img">
+    </footer>
+    
+</body>
 
 </html>
