@@ -16,6 +16,3 @@ Sawyer Sieja: Web Developer, Database Administrator, Network Administrator
 Victor Depaz: Web Developer
 
 Dongjin Li: Web Developer
-
-
-Summary of project: 
