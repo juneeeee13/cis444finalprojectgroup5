@@ -5,7 +5,7 @@
     <title>Event</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" src="../../eSDee-logo/darkmode.png">
+    <link rel="icon" href="../../eSDee-logo/darkmode.png">
     <link rel="stylesheet" type="text/css" href="events.css">
     <script src="functions.js" defer></script>
     <script src="eventsHandlers.js" defer></script>
@@ -37,7 +37,7 @@
                         <li><a href="../home/home.html"><img src="../../eSDee-logo/darkmode.png" alt="img"></a></li>
                         <li><a href="../home/home.html">Home</a></li>
                         <li><a href="../culture/culture.html">Culture</a></li>
-                        <li><a href="../event/events.html">Event</a></li>
+                        <li><a href="../events/events.html">Event</a></li>
                         <li><a href="../food/food.html">Food</a></li>
                         <li><a href="../place/place.html">Place</a></li>
                         <li><a href="../about/about.html">About us</a></li>
@@ -66,7 +66,7 @@
             <div class="modal-content">
                 <span class="close postClose">&times;</span>
                 <h2>New Post</h2>
-                <form id="postForm" action="">
+                <form id="postForm">
                     <label for="postText">Text:</label>
                     <textarea id="postText" rows="4" cols="50" placeholder="Enter your post here..."></textarea><br>
 
@@ -87,7 +87,7 @@
             <div class="modal-content">
                 <span class="close replyClose">&times;</span>
                 <h2>Reply to Post</h2>
-                <form id="replyForm" action="">
+                <form id="replyForm">
                     <label for="replyText">Reply:</label>
                     <textarea id="replyText" rows="4" cols="50" placeholder="Enter your reply here..."></textarea><br>
 
@@ -105,10 +105,19 @@
         <section id="postsSection"></section>
 
     </main>
-</body>
 
-<footer>
-    <img class="footerimage" src="../../esdeeimgs/esdeefooter.png">
-</footer>
+    <!-- Ranking Section -->
+    <aside id="rankingSection">
+        <h2>Top Posts</h2>
+        <ol id="topPosts">
+            <!-- Ranking will be dynamically inserted here by JavaScript -->
+        </ol>
+    </aside>
+
+    <footer>
+        <img class="footerimage" src="../../esdeeimgs/esdeefooter.png" alt="img">
+    </footer>
+    
+</body>
 
 </html>
