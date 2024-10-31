@@ -1,86 +1,173 @@
-header{
-    display: flex;
-    align-items: center; 
-    justify-content: flex-start;
-    margin-left: 20px;
-    font-size: larger;
+    @font-face {
+        font-family: 'alice';
+        src: url('/fonts/alicefont/Alice-Regular.ttf');
+        font-weight: normal;
+        font-style: normal;
+    }
     
-}
-footer {
-    text-align: center;
-}
-footer p a{
-    text-decoration: none;
-    color: rgb(71, 67, 67);
-    font-size: larger;
-}
-
-header img{
-    margin-right: 10px;
-}
-header h1{
-    color: pink;
-}
-
-.settings-section {
-    display: flex;              
-    justify-content: space-between;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    height: 70vh
-
-}
-nav {
-    flex: 1;
-    max-width: 200px;
-    background-color: #f4f4f4;
-    padding: 10px;
-    margin-right: 20px;
-    margin-left: 20px;
-}
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-  }
-  li a:hover {
-    background-color: pink;
-   
-  }
-li {
- margin: 0px;
-}
-li a {
-    display: block;
-    text-decoration: none;
-    color: rgb(71, 67, 67);
-
-    padding: 20px;
-
-    width: 100%;
-    box-sizing: border-box;
-  }
-.content-section {
-    flex: 3;
-    background-color: #eaeaea;
-    padding: 20px;
+    @font-face {
+        font-family: 'niconne';
+        src: url('/fonts/niconnefont/Niconne-Regular.ttf');
+        font-weight: normal;
+        font-style: normal;
+    }
     
-    margin-right: 20px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: rgb(71, 67, 67);
+    body {
+        background-color: #fffbe4;
+        font-family: 'alice';
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     
+    header {
+        text-align: center;
+        background-color: #fffbe4; 
+    }
+    
+    h1 {
+        font-family: 'niconne';
+        font-size: 60px;
+        color: rgb(72, 60, 50);
+        text-align: center;
+        margin: 0; 
+    }
+    
+    .icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .headerimage {
+        max-width: 100%;
+        height: auto; 
+    }
+    
+    .settings-section {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 80%;
+        margin: auto;
+        background-color: white;
+        border: 2px solid rgb(203, 221, 255);
+        border-radius: 25px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        font-family: 'alice';
+    }
+    
+    nav {
+        flex: 1;
+        max-width: 200px;
+        padding: 10px;
+        
+        box-sizing: border-box;
 
-}
-.edit-mode {
-    display: none;
-}
-.edit-actions {
-    display: none;
-    margin-top: 10px;
-}
-.edit-button {
-    margin-top: 20px;
-}
+        text-align: center;
+    }
+    
+    nav ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    nav li {
+        margin: 0;
+    }
+    
+    nav li a {
+        display: block;
+        padding: 15px;
+        text-decoration: none;
+        color: rgb(71, 67, 67);
+        font-size: 20px;
+    }
+    
+    nav li a:hover {
+        background-color: rgb(203, 221, 255);
+        color: rgb(71, 67, 67);
+        border-radius: 5px;
+    }
+    
+    .content-section {
+        flex: 3;
+        background-color: #fffdf1;
+        padding: 30px;
+        color: rgb(71, 67, 67);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 20px;
+        border-radius: 10px;
+    }
+    
+    .content-section p {
+        font-size: 18px;
+        color: rgb(72, 60, 50);
+        margin-bottom: 15px;
+    }
+    
+    .edit-button {
+        background-color: rgb(203, 221, 255);
+        color: rgb(71, 67, 67);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }   
+    
+    .edit-mode {
+        display: none;
+        font-size: 18px;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid rgb(203, 221, 255);
+    }
+    
+    .edit-button {
+        font-family: 'alice';
+        font-size: 16px;
+        padding: 10px 20px;
+        background-color: rgb(203, 221, 255);
+        color: rgb(72, 60, 50);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    
+    
+    .edit-actions{
+
+        margin-top: 10px;
+        
+        display: none;
+    }
+
+    .edit-actions button {
+        font-family: 'alice';
+        font-size: 16px;
+        padding: 10px 20px;
+        background-color: rgb(203, 221, 255);
+        color: rgb(72, 60, 50);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    footer {
+        font-family: 'alice';
+        background-color: #fffbe4;
+        text-align: center;
+        
+    }
+    
+    .footerimage {
+        max-width: 100%;
+        max-height: 100%;
+        align-items: center;
+        margin-top: 100px;
+    }
+    

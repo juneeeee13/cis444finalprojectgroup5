@@ -4,38 +4,48 @@
 <head>
     <title>Culture</title>
     <meta charset="utf-8">
-    <meta name="viewport"
-        content="target-densitydpi=device-dpi, width=device-width, maximum-scale=1.0, user-scalable=yes">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="script.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" src="../../eSDee-logo/darkmode.png">
+    <link rel="stylesheet" type="text/css" href="culture.css">
+    <script src="functions.js" defer></script>
+    <script src="eventsHandlers.js" defer></script>
+    <script src="events.js" defer></script>
 </head>
 
 <body>
     <header id="header">
         <div class="topic">
             <h1><b>Culture</b></h1>
-            <P>DESCRIPTION if need</P>
+            <img class="icon1" src="../../esdeeimgs/esdeebrowsericon.png" alt="img">
+            <img class="icon2" src="../../esdeeimgs/pinkshell.png" alt="img">
+            <img class="headerimage" src="../../esdeeimgs/waves.png" alt="img">
+
+            <div id="description">
+                <div class="dText">
+                    <p>Explore the vibrant cultural landscape of San Diego on our Culture page.
+                        Here, you can freely share your unique insights, images, and experiences related to the city's
+                        rich heritage, art, and local traditions.
+                        Whether it's about the latest art exhibit, a community festival, or a hidden cultural gem,
+                        this is the place to connect and celebrate San Diego's culture with others.</p>
+                </div>
+            </div>
         </div>
 
         <div id="navArea">
             <nav>
                 <div class="menuInner">
                     <ul>
-                        <li><a href="aaa"><img src="img/Voxmix_text_500_300_px.png" alt="img"></a></li>
-                        <li><a href="aaa">Top</a></li>
-                        <li><a href="eSeeProject/culture/index.html">Culture</a></li>
-                        <li><a
-                                href="C:\Users\takeh\Documents\school\class\CS\cis444\HW\eSDeeProject\eevent\index.html">Event</a>
-                        </li>
-                        <li><a href="eSeeProject/food/index.html">Food</a></li>
-                        <li><a href="eSeeProject/place/index.html">Place</a></li>
-                        <li><a href="aaa">About us</a></li>
-                        <li><a href="aaa">Setting</a></li>
+                        <li><a href="../home/home.html"><img src="../../eSDee-logo/darkmode.png" alt="img"></a></li>
+                        <li><a href="../home/home.html">Home</a></li>
+                        <li><a href="../culture/culture.html">Culture</a></li>
+                        <li><a href="../event/events.html">Event</a></li>
+                        <li><a href="../food/food.html">Food</a></li>
+                        <li><a href="../place/place.html">Place</a></li>
+                        <li><a href="../about/about.html">About us</a></li>
+                        <li><a href="../settings/settings.html">Setting</a></li>
                     </ul>
                 </div>
             </nav>
-
 
             <div class="toggle_btn">
                 <span></span>
@@ -49,44 +59,57 @@
     </header>
 
     <main>
-        <!-- 投稿ボタン -->
-         <!-- Post button -->
+        <!-- Post Button -->
         <button id="postButton">Post</button>
 
-        <!-- 投稿フォーム用のモーダル -->
-         <!-- Modal for the post form -->
-        <div id="postModal" class="modal">
+        <!-- Modal for New Post Form -->
+        <div id="postModal" class="modal" style="display:none;">
             <div class="modal-content">
-                <span class="close">&times;</span>
+                <span class="close postClose">&times;</span>
                 <h2>New Post</h2>
                 <form id="postForm" action="">
                     <label for="postText">Text:</label>
                     <textarea id="postText" rows="4" cols="50" placeholder="Enter your post here..."></textarea><br>
 
-                    <label for="postImage">Image:</label>
-                    <input type="file" id="postImage"><br><br>
+                    <!-- Multiple Image Upload -->
+                    <label for="postImage">Images:</label>
+                    <input type="file" id="postImage" multiple><br><br>
+
+                    <!-- Container for Image Preview -->
+                    <div id="imagePreview"></div>
 
                     <button type="submit">Submit Post</button>
                 </form>
             </div>
         </div>
 
-        <!-- 返信フォーム用のモーダル -->
-         <!-- Modal for the reply form -->
+        <!-- Modal for Reply Form -->
         <div id="replyModal" class="modal">
             <div class="modal-content">
-                <span class="close">&times;</span>
+                <span class="close replyClose">&times;</span>
                 <h2>Reply to Post</h2>
                 <form id="replyForm" action="">
                     <label for="replyText">Reply:</label>
                     <textarea id="replyText" rows="4" cols="50" placeholder="Enter your reply here..."></textarea><br>
+
+                    <!-- Multiple Image Upload for Reply -->
+                    <label for="replyImage">Images:</label>
+                    <input type="file" id="replyImage" multiple><br><br>
+
+                    <!-- Container for Image Preview in Reply -->
+                    <div id="replyImagePreview"></div>
+
                     <button type="submit">Submit Reply</button>
                 </form>
             </div>
         </div>
-
         <section id="postsSection"></section>
+
     </main>
 </body>
+
+<footer>
+    <img class="footerimage" src="../../esdeeimgs/esdeefooter.png">
+</footer>
 
 </html>

@@ -1,0 +1,126 @@
+@font-face {
+    font-family: 'alice';
+    src: url('../fonts/alicefont/Alice-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'niconne';
+    src: url('../fonts/niconnefont/Niconne-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ----------- HEADER ------------- */
+h1 {
+    font-family: 'niconne';
+    font-size: 60px;
+    color: rgb(72, 60, 50);
+    text-align: center
+}
+
+h2 {
+    font-size: 32px;
+    color: rgb(72, 60, 50);
+    text-align: center 
+}
+
+.headerimage {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.icon  {
+    width: 60px;
+    height: 60px;
+}
+
+/* ----------- BODY ------------- */
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #fffbe4;
+    font-family: 'alice';
+    margin: 0;
+    width: auto;
+    max-width: 100%;
+}
+
+p {
+    font-family: 'alice';
+    align-items: center;
+    font-size: 15px;
+}
+
+#register-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 0.5em;
+    padding-left: 2em;
+    padding-right: 2em;
+    border: 2px solid black;
+    box-shadow: 0px 4px 4px black;
+    border-radius: 1em;
+    max-width: 60%;
+    margin: auto;
+    z-index: 99;
+}
+
+.input-container {
+    padding-bottom: 1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1em;
+    
+}
+
+label {
+    font-size: 1.5em;
+}
+
+.input-field {
+    height: 1.5em;
+    width: 10em;
+    font-size: 1.5em;
+    border-radius: 0.25em;
+}
+
+#button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    padding: 1em;
+}
+
+#registerSubmit {
+    height: 1.5em;
+    width: 5em;
+    border-radius: 0.5em;
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.return-login {
+    padding-top: 0.25em;
+    font-size: 1.1em;
+    text-decoration: none;
+}
+
+footer {
+    font-family: 'alice';
+    background-color: #fffbe4;
+    text-align: center;
+}
+
+.footerimage {
+    max-width: 100%;
+    max-height: 100%;
+    margin-top: 100px;
+}

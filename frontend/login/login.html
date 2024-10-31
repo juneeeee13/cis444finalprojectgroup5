@@ -3,27 +3,49 @@
     <head>
         <title>Login</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="login.css">
         <script src="login.js" defer></script>
     </head>
     <body>
-        <h1>Login</h1>
-        <form id="loginForm">
-            <label for="usernameInput">Username</label>
-            <input id="usernameInput" type="text">
-            <br>
-            <label for="passwordInput">Password</label>
-            <input id="passwordInput" type="password">
-            <br>
-            <input type="submit" id="loginSubmit" value="login">
-            <button type="button" onclick="location.href='./register.html'">register</button>
-            <br>
-            <!-- Forgot username -->
-            <a href="./forgotUsername.html" style="text-decoration: none;"><span>Forgot username?</span></a>
-            <br>
-            <!-- Forgot password -->
-            <a href="./forgotPassword.html" style="text-decoration: none;"><span>Forgot password?</span></a>
+        <header>
+            <h1>
+                <img class="icon" src="../../esdeeimgs/esdeebrowsericon.png">
+                    eSDee     
+                <img class="icon" src="../../esdeeimgs/pinkshell.png">
+                <br>
+                <img class="headerimage" src="../../esdeeimgs/waves.png">
+            </h1>
+        </header>
+        <div id="login-card">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div id="username-container" class="input-container">
+                    <label for="usernameInput">Username</label>
+                    <input id="usernameInput" class="input-field" type="text">
+                </div>
+                <div id="password-container" class="input-container">
+                    <label for="passwordInput">Password</label>
+                    <input id="passwordInput" class="input-field" type="password">
+                </div>
+                <div id="button-container">
+                    <div id="submit-container">
+                        <input type="submit" id="loginSubmit" value="login">
+                        <button type="button" id="register-button" onclick="location.href='../register/register.html'">register</button>
+                    </div>
+                    <div id="forgot-container">
+                        <!-- Forgot username -->
+                        <a href="../forgotUsername/forgotUsername.html" class="forgot-text"><span>Forgot username?</span></a>
+                    
+                        <!-- Forgot password -->
+                        <a href="../forgotPassword/forgotPassword.html" class="forgot-text"><span>Forgot password?</span></a>
+                    </div>
+                </div>
+                
 
-        </form>
+            </form>
+        </div>
+        <footer>
+            <img class="footerimage" src="../../esdeeimgs/esdeefooter.png">
+        </footer>
     </body>
 </html>

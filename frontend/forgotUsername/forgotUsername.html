@@ -3,18 +3,34 @@
     <head>
         <title>Forgot Username</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="forgotUsername.css">
         <script src="forgotUsername.js" defer></script>
     </head>
     <body>
-        <h1>Forgot Username</h1>
-        <form id="forgotUsernameForm">
-            <label for="emailInput">enter email</label>
-            <input id="emailInput" type="email">
-            <br>
-            <input type="submit" id="emailSubmit" value="Submit">
-            <br>
-            <a href="./login.html" style="text-decoration: none;"><span>Return to login</span></a>
-        </form>
+        <header>
+            <h1>
+                <img class="icon" src="../../esdeeimgs/esdeebrowsericon.png">
+                    eSDee     
+                <img class="icon" src="../../esdeeimgs/pinkshell.png">
+                <br>
+                <img class="headerimage" src="../../esdeeimgs/waves.png">
+            </h1>
+        </header>
+        <div id="forgot-card">
+            <h2>Forgot Username?</h2>
+            <form id="forgotUsernameForm">
+                <div id="" class="input-container">
+                    <label for="emailInput">enter email</label>
+                    <input id="emailInput" class="input-field" type="email">
+                </div>
+                <div id="button-container">
+                    <input type="submit" id="emailSubmit" value="Submit">
+                    <a href="../login/login.html" class="return-login" style="text-decoration: none;"><span>Return to login</span></a>
+                </div>
+            </form>
+        </div>
+        <footer>
+            <img class="footerimage" src="../../esdeeimgs/esdeefooter.png">
+        </footer>
     </body>
 </html>
