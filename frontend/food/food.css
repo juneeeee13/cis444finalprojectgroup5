@@ -238,7 +238,7 @@ footer {
     width: 100%;
     transition-duration: 0.2s;
     box-shadow: none;
-    border-radius: none;
+/*     border-radius: none; */
 }
 
 #header nav .menuInner ul li a:hover {
