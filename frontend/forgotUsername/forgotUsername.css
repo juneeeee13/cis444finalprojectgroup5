@@ -1,13 +1,13 @@
 @font-face {
     font-family: 'alice';
-    src: '/fonts/alicefont/Alice-Regular.ttf';
+    src: url('../fonts/alicefont/Alice-Regular.ttf');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'niconne';
-    src: '/fonts/niconnefont/Niconne-Regular.ttf';
+    src: url('../fonts/niconnefont/Niconne-Regular.ttf');
     font-weight: normal;
     font-style: normal;
 }
@@ -21,7 +21,7 @@ h1 {
 }
 
 h2 {
-    font-family: 'niconne';
+    
     font-size: 32px;
     color: rgb(72, 60, 50);
     text-align: center 
