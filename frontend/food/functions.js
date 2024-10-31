@@ -212,3 +212,33 @@ function createReply(replyForm, activeReplyTarget) {
     replyForm.reset();
     document.getElementById('imagePreview').innerHTML = '';  // Reset image preview
 }
+
+
+// Sample data setting the number of "likes" for each post
+var posts = [
+    { id: 1, content: "Post 1", likes: 10 },
+    { id: 2, content: "Post 2", likes: 30 },
+    { id: 3, content: "Post 3", likes: 20 },
+    { id: 4, content: "Post 4", likes: 25 },
+    { id: 5, content: "Post 5", likes: 15 },
+    { id: 6, content: "Post 6", likes: 35 }
+];
+
+// Function to update the ranking
+function updateRanking() {
+    // Sort by the number of likes (descending)
+    var topPosts = posts.sort(function(a, b) { return b.likes - a.likes; }).slice(0, 5);
+
+    // Display in the ranking section
+    var topPostsElement = document.getElementById("topPosts");
+    topPostsElement.innerHTML = ""; // Initialize
+
+    topPosts.forEach(function(post, index) {
+        var listItem = document.createElement("li");
+        listItem.textContent = (index + 1) + ". " + post.content + " - " + post.likes + " likes";
+        topPostsElement.appendChild(listItem);
+    });
+}
+
+// Update the ranking when the page loads
+document.addEventListener("DOMContentLoaded", updateRanking);
