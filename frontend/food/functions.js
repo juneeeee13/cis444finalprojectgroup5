@@ -104,6 +104,12 @@ function createPost(postForm, postsSection) {
     });
     postDiv.appendChild(replyButton);
 
+    // Function to create a new post (add this inside createPost)
+    var reportButton = document.createElement('button');
+    reportButton.textContent = 'Report';
+    reportButton.classList.add('report-button');
+    postDiv.appendChild(reportButton);
+
     // Replies section
     var repliesDiv = document.createElement('div');
     repliesDiv.classList.add('replies');
@@ -187,6 +193,12 @@ function createReply(replyForm, activeReplyTarget) {
     });
     replyDiv.appendChild(replyButton);
 
+    // Function to create a reply (add this inside createReply)
+    var replyReportButton = document.createElement('button');
+    replyReportButton.textContent = 'Report';
+    replyReportButton.classList.add('report-button');
+    replyDiv.appendChild(replyReportButton);
+
     // Nested replies section
     var nestedRepliesDiv = document.createElement('div');
     nestedRepliesDiv.classList.add('replies');
@@ -200,4 +212,3 @@ function createReply(replyForm, activeReplyTarget) {
     replyForm.reset();
     document.getElementById('imagePreview').innerHTML = '';  // Reset image preview
 }
-
