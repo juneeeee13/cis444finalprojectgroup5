@@ -21,11 +21,15 @@ function validateUsername() {
     if(!regUsername.test(dom.usernameInput.value)) {
         console.log("Invalid username");
         console.log(dom.usernameInput.value);
+        alert("Invalid username format. Use alphanumerical.");
+        dom.usernameInput.style.boxShadow = "0px 0px 8px red";
         //unnecessary to validate password input
     } else {
         console.log("Test successful, it works.");
         username = dom.usernameInput.value;
         console.log("Testing username: " + username);
+        dom.usernameInput.style.boxShadow = "none";
+
     }
 }
 
