@@ -137,7 +137,7 @@ main {
 }
 
 .post, .reply {
-    background-color: rgb(203, 221, 255);
+    /* background-color: rgb(203, 221, 255); */
     position: relative;
     padding: 10px;
     margin: 10px 0;

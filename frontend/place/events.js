@@ -31,3 +31,6 @@ var replyModalHandler = document.addEventListener("click", handleReplyButtonClic
 // Add click event for "Like" button
 var postsSection = document.getElementById("postsSection");
 postsSection.addEventListener("click", handleLikeButtonClick, false);
+
+// Add click event for "Report" button in posts section
+postsSection.addEventListener("click", handleReportButtonClick, false);
