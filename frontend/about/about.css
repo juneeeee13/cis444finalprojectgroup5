@@ -1,13 +1,13 @@
 @font-face {
     font-family: 'alice';
-    src: url('/fonts/alicefont/Alice-Regular.ttf');
+    src: url('../fonts/alicefont/Alice-Regular.ttf');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'niconne';
-    src: url('/fonts/niconnefont/Niconne-Regular.ttf');
+    src: url('../fonts/niconnefont/Niconne-Regular.ttf');
     font-weight: normal;
     font-style: normal;
 }
@@ -113,7 +113,7 @@ p {
     background-repeat: repeat;
     text-align: center;
     width: 90%;
-    height: 22%;
+    height: 25%;
     justify-content: space-between;
     align-items: center;
     float: left
