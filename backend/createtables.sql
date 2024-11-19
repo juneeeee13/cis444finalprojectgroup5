@@ -4,20 +4,20 @@ CREATE TABLE users (
     password VARCHAR(15) NOT NULL,
     age INT NOT NULL,
     email VARCHAR(254) NOT NULL,
-    isAdmin BOOLEAN DEFAULT FALSE,
-    isBlacklisted BOOLEAN DEFAULT FALSE,
-    profileImg VARCHAR
+    isAdmin TINYINT(1) DEFAULT 0,
+    isBlacklisted TINYINT(1) DEFAULT 0,
+    profileImg VARCHAR(255)
 );
 
 CREATE TABLE posts (
     post_id INT PRIMARY KEY NOT NULL,
     title VARCHAR(20) NOT NULL,
     content VARCHAR(300) NOT NULL,
-    images VARCHAR,
+    images VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     like_no INT DEFAULT 0,
-    hashtags VARCHAR,
-    category VARCHAR
+    hashtags VARCHAR(255),
+    category VARCHAR(50)
 );
 
 CREATE TABLE reports (
@@ -34,7 +34,7 @@ CREATE TABLE replies (
     reply_id INT PRIMARY KEY NOT NULL,
     post_id INT,
     content VARCHAR(300) NOT NULL,
-    image VARCHAR,
+    image VARCHAR(255),
     user_id INT,
     FOREIGN KEY (post_id) REFERENCES posts(post_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
