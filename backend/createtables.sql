@@ -1,5 +1,5 @@
 CREATE TABLE users (
-    user_id INT PRIMARY KEY NOT NULL,
+    user_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     username VARCHAR(20) NOT NULL,
     password VARCHAR(15) NOT NULL,
     age INT NOT NULL,
@@ -10,18 +10,20 @@ CREATE TABLE users (
 );
 
 CREATE TABLE posts (
-    post_id INT PRIMARY KEY NOT NULL,
+    post_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    poster_id INT NOT NULL,
     title VARCHAR(20) NOT NULL,
     content VARCHAR(300) NOT NULL,
-    images VARCHAR(255),
+    images VARCHAR,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     like_no INT DEFAULT 0,
-    hashtags VARCHAR(255),
-    category VARCHAR(50)
+    hashtags VARCHAR,
+    category VARCHAR
+    FOREIGN KEY (poster_id) REFERENCES users(user_id),
 );
 
 CREATE TABLE reports (
-    report_id INT PRIMARY KEY NOT NULL,
+    report_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     reporter_id INT NOT NULL,
     user_reported INT NOT NULL,
     post_id INT NOT NULL,
@@ -31,10 +33,10 @@ CREATE TABLE reports (
 );
 
 CREATE TABLE replies (
-    reply_id INT PRIMARY KEY NOT NULL,
+    reply_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     post_id INT,
     content VARCHAR(300) NOT NULL,
-    image VARCHAR(255),
+    image VARCHAR,
     user_id INT,
     FOREIGN KEY (post_id) REFERENCES posts(post_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
