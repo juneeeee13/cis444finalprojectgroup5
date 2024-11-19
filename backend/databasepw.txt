@@ -1,0 +1,5 @@
+steps to get into the database:
+
+mysql -u team_5 -p team_5
+  username: team_5
+  password: h7pqwqs1
