@@ -5,7 +5,7 @@ SELECT * FROM users WHERE username = 'entered_username' AND password = 'entered_
 
 
 -- page: register.html
-SELECT * FROM users WHERE username = 'entered_username' OR email = 'entered_email'
+SELECT * FROM users WHERE username = 'entered_username' OR email = 'entered_email';
 INSERT INTO users(username, password, age, email)
 VALUES('entered_username', 'entered_password', 'entered_age', 'entered_email');
 -- How results will be displayed to those pages:
@@ -14,7 +14,7 @@ VALUES('entered_username', 'entered_password', 'entered_age', 'entered_email');
 
 
 -- page: forgotPassword.html
-SELECT password FROM users WHERE email = 'user@email.com'
+SELECT password FROM users WHERE email = 'user@email.com';
 -- How results will be displayed to those pages:
 -- A modal or alert will pop up on the forgotPassword webpage indicating to the user to check the email they entered as the password will be sent to that email address. 
 -- If there was no password associated with the email entered, we will send this pop up or modal message anyway for security purposes to prevent from leaking user account information.
@@ -22,7 +22,7 @@ SELECT password FROM users WHERE email = 'user@email.com'
 
   
 -- page: forgotUsername.html
-SELECT username FROM users WHERE email = 'user@email.com'
+SELECT username FROM users WHERE email = 'user@email.com';
 -- How results will be displayed to those pages:
 -- A modal or alert will pop up on the forgotUsername webpage indicating to the user to check the email they entered as the username will be sent to that email address. 
 -- If there was no email associated with the email entered, we will send this pop up or modal message anyway for security purposes to prevent from leaking user account information. 
