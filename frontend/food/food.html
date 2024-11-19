@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../../eSDee-logo/darkmode.png">
     <link rel="stylesheet" type="text/css" href="food.css">
-    <script src="functions.js" defer></script>
     <script src="eventsHandlers.js" defer></script>
+    <script src="functions.js" defer></script>
     <script src="events.js" defer></script>
 </head>
 
@@ -55,6 +55,26 @@
             <div id="mask"></div>
         </div>
 
+        <!-- Search Bar -->
+        <div id="searchContainer">
+            <input type="text" id="searchBar" placeholder="Search posts..." />
+            <button onclick="searchPosts()">Search</button>
+        </div>
+
+        <!-- Date Filter Dropdown -->
+        <div id="dateFilterContainer">
+            <label for="dateFilter">Filter by Date:</label>
+            <select id="dateFilter" onchange="filterPostsByDate()">
+                <option value="">Select</option>
+                <option value="new">Newest</option>
+                <option value="3days">3 Days Ago</option>
+                <option value="2week">2 Week Ago</option>
+                <option value="1month">1 Month Ago</option>
+                <option value="old">Oldest</option>
+                <!-- Add more options as needed -->
+            </select>
+        </div>
+
     </header>
 
     <main>
@@ -67,6 +87,13 @@
                 <span class="close postClose">&times;</span>
                 <h2>New Post</h2>
                 <form id="postForm">
+                    <label for="postTitle">Title:</label>
+                    <textarea id="postTitle" rows="4" cols="50"
+                        placeholder="Enter the title of post here..."></textarea><br>
+
+                    <label for="postHashtags">Hashtags:</label>
+                    <textarea id="postHashtags" rows="1" cols="50" placeholder="#..."></textarea><br>
+                    
                     <label for="postText">Text:</label>
                     <textarea id="postText" rows="4" cols="50" placeholder="Enter your post here..."></textarea><br>
 
