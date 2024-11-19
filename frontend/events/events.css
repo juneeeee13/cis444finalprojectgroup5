@@ -32,6 +32,7 @@ li {
     height: 300px;
     /* margin: auto; */
     position: relative;
+    /* background-color: red; */
 }
 
 .topic {
@@ -63,8 +64,8 @@ li {
     /* border: solid 2px rgba(0, 0, 0, 0.5); */
     /* border: solid 2px #333; */
     text-align: center;
-    
-    
+
+
 }
 
 #description .dText {
@@ -84,7 +85,7 @@ li {
     position: absolute;
 }
 
-.icon1  {
+.icon1 {
     width: 60px;
     height: 60px;
     margin-left: 30%;
@@ -92,7 +93,7 @@ li {
     position: absolute;
 }
 
-.icon2  {
+.icon2 {
     width: 60px;
     height: 60px;
     margin-left: 67%;
@@ -104,7 +105,8 @@ main {
     flex: 1;
     width: 50%;
     margin: auto;
-    margin-top: 5%;
+    /* margin-top: 5%; */
+    margin-top: 10%;
     padding-left: 25%;
     padding-right: 25%;
     padding: 20px;
@@ -136,14 +138,17 @@ main {
     /* Allow scrolling */
 }
 
-.post, .reply {
+.post,
+.reply {
     /* background-color: rgb(203, 221, 255); */
     position: relative;
     padding: 10px;
     margin: 10px 0;
     /* Prevent long text from overflowing */
-    word-wrap: break-word; /* Automatically break long words */
-    white-space: normal; /* Wrap text as in normal blocks */
+    word-wrap: break-word;
+    /* Automatically break long words */
+    white-space: normal;
+    /* Wrap text as in normal blocks */
 }
 
 .reply {
@@ -238,7 +243,7 @@ footer {
     width: 100%;
     transition-duration: 0.2s;
     box-shadow: none;
-/*     border-radius: none; */
+    /* border-radius: none; */
 }
 
 #header nav .menuInner ul li a:hover {
@@ -273,4 +278,54 @@ footer {
     font-size: 16px;
     padding: 8px;
     border-bottom: 1px solid #333;
+}
+
+
+
+
+#searchContainer {
+    text-align: center;
+    margin-top: 10px;
+    position: absolute;
+    top: 400px;
+    right: 380px;
+    /* background-color: orange; */
+}
+
+#searchBar {
+    width: 200px;
+    padding: 5px;
+    font-size: 16px;
+}
+
+#dateFilterContainer {
+    text-align: center;
+    margin-top: 10px;
+    position: absolute;
+    top: 400px;
+    right: 920px;
+    /* background-color: green; */
+}
+
+#dateFilterContainer {
+    margin-top: 10px;
+}
+
+#dateFilter {
+    padding: 5px;
+    font-size: 16px;
+}
+
+
+
+button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ddd;
 }
