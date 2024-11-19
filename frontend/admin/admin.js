@@ -13,7 +13,8 @@ var users = [
         ],
         reports: [
             { content: "Reported post content by user1", timestamp: "2024-10-31 11:00" }
-        ]
+        ],
+        warnCount: 0
     },
     {
         userID: "user2",
@@ -26,7 +27,8 @@ var users = [
             { content: "First post content by user2", timestamp: "2024-10-30 10:00" },
             { content: "Second post content by user2", timestamp: "2024-10-30 12:00" }
         ],
-        reports: []
+        reports: [],
+        warnCount: 2
     },
     {
         userID: "user3",
@@ -39,7 +41,8 @@ var users = [
             { content: "First post content by user3", timestamp: "2024-10-29 09:00" },
             { content: "Second post content by user3", timestamp: "2024-10-29 13:00" }
         ],
-        reports: []
+        reports: [],
+        warnCount: 3
     },
     {
         userID: "user4",
@@ -52,174 +55,180 @@ var users = [
             { content: "First post content by user4", timestamp: "2024-10-28 09:00" },
             { content: "Second post content by user4", timestamp: "2024-10-28 13:00" }
         ],
-        reports: []
+        reports: [],
+        warnCount: 4
     }
-  ];
-  
-  // Show modal
-  function showReports() {
-    document.getElementById("reportModal").style.display = "flex";
-    loadReports();
-  }
-  
-  function showUserLog() {
-    document.getElementById("userModal").style.display = "flex";
-    loadUserList();
-  }
-  
-  function showBlacklist() {
-    document.getElementById("blacklistModal").style.display = "flex";
-    loadBlacklist();
-  }
-  
-  // Sign out function
-  function signOut() {
+];
+
+// Navigation functions
+function navigateToReports() {
+    window.location.href = "see_reports.html";
+}
+
+function navigateToUserLog() {
+    window.location.href = "user_log.html";
+}
+
+function navigateToBlacklist() {
+    window.location.href = "blacklists.html";
+}
+
+function navigateToDashboard() {
+    window.location.href = "admin.html";
+}
+
+// Sign out function
+function signOut() {
     if (confirm("Are you sure you want to sign out?")) {
         alert("You have been signed out.");
         location.reload();
     }
-  }
-  
-  // Close modal
-  function closeModal(modalId) {
-    document.getElementById(modalId).style.display = "none";
-  }
-  
-  // Load Report data
-  function loadReports() {
-    var reportDetails = document.getElementById("reportDetails");
-    reportDetails.innerHTML = "";
-  
-    users.forEach(function(user) {
-        user.reports.forEach(function(report, index) {
-            var reportElement = document.createElement("div");
-            reportElement.innerHTML = `<p>Report #${index + 1} from ${user.userID}: ${report.content} <em>(${report.timestamp})</em></p>`;
-  
-            var actionButton = document.createElement("button");
-            actionButton.textContent = "Flag as Inappropriate";
-            actionButton.onclick = function() {
-                if (confirm("Flag this post as inappropriate?")) {
-                    applyTimeout(user);  // Apply timeout based on report
-                    alert("Timeout has been applied.");
-                }
-            };
-            reportElement.appendChild(actionButton);
-            reportDetails.appendChild(reportElement);
-        });
-    });
-  }
-  
-  // Apply timeout based on user status
-  function applyTimeout(user) {
-    if (user.status === "good") {
-        user.status = "24h timeout";
-    } else if (user.status === "24h timeout") {
-        user.status = "72h timeout";
-    } else if (user.status === "72h timeout") {
-        user.status = "banned";
-    }
-  }
-  
-  // Load User List with clickable user IDs
-  function loadUserList() {
-    var userDetails = document.getElementById("userDetails");
-    userDetails.innerHTML = "";  // Clear previous content
-  
-    users.forEach(function(user) {
-        var userElement = document.createElement("p");
-        userElement.innerHTML = `<a href="#" onclick="showUserDetails('${user.userID}')">${user.userID}</a>`;
-        userDetails.appendChild(userElement);
-    });
-  }
-  
-  // Show individual user details in a separate modal
-  function showUserDetails(userID) {
-    var user = users.find(function(u) { return u.userID === userID; });
-    if (user) {
-        var userDetailModal = document.getElementById("userDetailModal");
-        
-        // If the modal does not exist, create it
-        if (!userDetailModal) {
-            userDetailModal = document.createElement("div");
-            userDetailModal.id = "userDetailModal";
-            userDetailModal.className = "modal";
-            userDetailModal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close" onclick="closeModal('userDetailModal')">&times;</span>
-                    <div id="userDetailInfo" class="scrollable-content"></div>
-                </div>
-            `;
-            document.body.appendChild(userDetailModal);
+}
+
+
+// // User Log Logic
+document.addEventListener("DOMContentLoaded", () => {
+    const userList = document.getElementById("userList");
+    const userDetails = document.getElementById("userDetails");
+    const userSearchBar = document.getElementById("userSearchBar");
+
+    if (userList && userDetails && userSearchBar) {
+        function displayUserList(filter = "") {
+            userList.innerHTML = "";
+            userDetails.style.display = "none";
+            users
+                .filter(user => user.userID.toLowerCase().includes(filter.toLowerCase()))
+                .forEach(user => {
+                    const userItem = document.createElement("p");
+                    userItem.textContent = user.userID;
+                    userItem.style.cursor = "pointer";
+                    userItem.addEventListener("click", () => displayUserDetails(user));
+                    userList.appendChild(userItem);
+                });
         }
-  
-        var userDetailInfo = document.getElementById("userDetailInfo");
-        userDetailInfo.innerHTML = `
-            <p><strong>User ID:</strong> ${user.userID}</p>
-            <p><strong>Email:</strong> ${user.email}</p>
-            <p><strong>Password:</strong> ${user.password}</p>
-            <p><strong>Status:</strong> ${user.status}</p>
-            <p><strong>Login Time:</strong> ${user.loginTime}</p>
-            <p><strong>Logout Time:</strong> ${user.logoutTime}</p>
-            <h3>Posts:</h3>
-            <ul>
-                ${user.posts.map(post => `<li>${post.content} <em>(${post.timestamp})</em></li>`).join('')}
-            </ul>
-        `;
-  
-        // Add a dropdown for selecting blacklist options
-        var blacklistSelect = document.createElement("select");
-        blacklistSelect.innerHTML = `
-            <option value="">Select Blacklist Option</option>
-            <option value="24h timeout">24h Timeout</option>
-            <option value="72h timeout">72h Timeout</option>
-            <option value="banned">Ban</option>
-        `;
-  
-        var blacklistButton = document.createElement("button");
-        blacklistButton.textContent = "Apply Blacklist Action";
-  
-        // Add functionality to apply the selected blacklist option
-        blacklistButton.onclick = function() {
-            var selectedOption = blacklistSelect.value;
-            if (selectedOption && confirm(`Are you sure you want to apply "${selectedOption}" to ${user.userID}?`)) {
-                user.status = selectedOption;
-                alert(`"${selectedOption}" has been applied to ${user.userID}.`);
-                loadUserList();  // Refresh user list with updated status
-                closeModal("userDetailModal");
-            } else if (!selectedOption) {
-                alert("Please select an option from the dropdown.");
+
+        function displayUserDetails(user) {
+            userDetails.innerHTML = `
+                <p><strong>User ID:</strong> ${user.userID}</p>
+                <p><strong>Email:</strong> ${user.email}</p>
+                <p><strong>Status:</strong> ${user.status}</p>
+                <p><strong>Warn Count:</strong> <span id="user-warn-${user.userID}">${user.warnCount || 0}</span></p>
+                <p><strong>Login Time:</strong> ${user.loginTime}</p>
+                <p><strong>Logout Time:</strong> ${user.logoutTime}</p>
+                                <button onclick="addToBlacklist('${user.userID}')">Add to the blacklist</button>
+                <div id="blacklist-options-${user.userID}" style="display:none; margin-top:10px;">
+                    <button onclick="updateStatus('${user.userID}', '24h timeout')">Set to 24h timeout</button>
+                    <button onclick="updateStatus('${user.userID}', '72h timeout')">Set to 72h timeout</button>
+                    <button onclick="updateStatus('${user.userID}', 'banned')">Set to banned</button>
+                </div>
+                <hr>
+            `;
+            userDetails.style.display = "block";
+        }
+
+        // Function to show blacklist options
+        window.addToBlacklist = function (userID) {
+            const optionsDiv = document.getElementById(`blacklist-options-${userID}`);
+            if (optionsDiv) optionsDiv.style.display = "block";
+        };
+
+        // Function to update user status
+        window.updateStatus = function (userID, newStatus) {
+            const user = users.find(u => u.userID === userID);
+            if (user) {
+                user.status = newStatus; // Update the user's status
+                alert(`${user.userID} status updated to "${newStatus}"`);
+
+                // Update the status in User Details
+                const statusSpan = document.getElementById(`user-status-${userID}`);
+                if (statusSpan) statusSpan.textContent = newStatus;
+
+                // Hide the options after selection
+                const optionsDiv = document.getElementById(`blacklist-options-${userID}`);
+                if (optionsDiv) optionsDiv.style.display = "none";
+
+                // Refresh the blacklist display if visible
+                const blacklistSearchBar = document.getElementById("blacklistSearchBar");
+                if (blacklistSearchBar) displayBlacklist(blacklistSearchBar.value);
             }
         };
-  
-        userDetailInfo.appendChild(blacklistSelect);
-        userDetailInfo.appendChild(blacklistButton);
-  
-        // Display the user detail modal
-        userDetailModal.style.display = "flex";
+
+        displayUserList();
+        userSearchBar.addEventListener("input", () => displayUserList(userSearchBar.value));
     }
-  }
-  
-  // Load Blacklist data
-  function loadBlacklist() {
-    var blacklistDetails = document.getElementById("blacklistDetails");
-    blacklistDetails.innerHTML = "";
-  
-    users.filter(function(user) {
-        return ["24h timeout", "72h timeout", "banned"].includes(user.status);
-    }).forEach(function(user) {
-        var blacklistElement = document.createElement("div");
-        blacklistElement.innerHTML = `<p><strong>User ID:</strong> ${user.userID} - ${user.status}</p>`;
-  
-        var removeButton = document.createElement("button");
-        removeButton.textContent = "Remove from Blacklist";
-        removeButton.onclick = function() {
-            if (confirm(`Are you sure you want to remove ${user.userID} from the blacklist?`)) {
-                user.status = "good";
+
+    // Blacklist Logic
+    const blacklistDetails = document.getElementById("blacklistDetails");
+    const blacklistSearchBar = document.getElementById("blacklistSearchBar");
+
+    if (blacklistDetails && blacklistSearchBar) {
+        function displayBlacklist(filter = "") {
+            blacklistDetails.innerHTML = "";
+            users
+                .filter(user => ['24h timeout', '72h timeout', 'banned'].includes(user.status) &&
+                    user.userID.toLowerCase().includes(filter.toLowerCase()))
+                .forEach(user => {
+                    const userDiv = document.createElement("div");
+                    userDiv.innerHTML = `
+                    <p>
+                        <strong>User ID:</strong> ${user.userID} - 
+                        <strong>Status:</strong> ${user.status}
+                        <button onclick="removeFromBlacklist('${user.userID}')">Remove from the blacklist</button>
+                    </P>
+                `;
+                    blacklistDetails.appendChild(userDiv);
+                });
+        }
+
+        // Function to remove a user from the blacklist
+        window.removeFromBlacklist = function (userID) {
+            const user = users.find(u => u.userID === userID);
+            if (user) {
+                user.status = "good"; // Update the status of the user
                 alert(`${user.userID} has been removed from the blacklist.`);
-                loadBlacklist();  // Refresh data after status change
+                displayBlacklist(blacklistSearchBar.value); // Refresh the blacklist display
             }
         };
-        blacklistElement.appendChild(removeButton);
-        blacklistDetails.appendChild(blacklistElement);
-    });
-  }
+
+        displayBlacklist();
+        blacklistSearchBar.addEventListener("input", () => displayBlacklist(blacklistSearchBar.value));
+    }
+
+    // See Reports Logic
+    const reportDetails = document.getElementById("reportDetails");
+
+    if (reportDetails) {
+        function displayReports() {
+            reportDetails.innerHTML = "";
+            users.forEach(user => {
+                user.reports.forEach((report, index) => {
+                    const reportDiv = document.createElement("div");
+                    reportDiv.innerHTML = `
+                        <p><strong>Report #${index + 1}:</strong> ${report.content} <em>(${report.timestamp})</em></p>
+                        <button onclick="increaseWarnCount('${user.userID}')">Warn</button>
+                        <span id="warn-${user.userID}">Warn Count: ${user.warnCount || 0}</span>
+                    `;
+                    reportDetails.appendChild(reportDiv);
+                });
+            });
+        }
+
+        //function increaseWarnCount(userID) {
+        window.increaseWarnCount = function (userID) {
+            const user = users.find(u => u.userID === userID);
+            if (user) {
+                user.warnCount = (user.warnCount || 0) + 1;
+                document.getElementById(`warn-${userID}`).textContent = `Warn Count: ${user.warnCount}`;
+
+                // Update warn count in User Activity Log if visible
+                const warnSpan = document.getElementById(`user-warn-${userID}`);
+                if (warnSpan) {
+                    warnSpan.textContent = user.warnCount;
+                }
+            }
+
+        };
+
+        displayReports();
+    }
+});
