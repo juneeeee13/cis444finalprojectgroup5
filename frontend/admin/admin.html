@@ -1,51 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="admin.css">
 </head>
+
 <body>
     <div class="dashboard">
         <h1>Admin Dashboard</h1>
-        <div class="buttons">
-            <button onclick="showReports()">See Reports</button>
-            <button onclick="showUserLog()">View Users Activity Log</button>
-            <button onclick="showBlacklist()">Check Blacklist</button>
-            <button onclick="signOut()">Sign Out</button>
-        </div>
-    </div>
-
-    <!-- Modal for User Activity Log -->
-    <div id="userModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('userModal')">&times;</span>
-            <h2>User Activity Log</h2>
-            <input type="text" id="searchUser" placeholder="Search by User ID">
-            <div id="userDetails"></div>
-        </div>
-    </div>
-
-    <!-- Modal for Blacklist -->
-    <div id="blacklistModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('blacklistModal')">&times;</span>
-            <h2>Blacklist</h2>
-            <input type="text" id="searchBlacklist" placeholder="Search by User ID">
-            <div id="blacklistDetails"></div>
-        </div>
-    </div>
-
-    <!-- Modal for Reports -->
-    <div id="reportModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('reportModal')">&times;</span>
-            <h2>Reported Posts</h2>
-            <div id="reportDetails"></div>
-        </div>
+        <ul>
+            <li><a href="see_reports.html">See Reports</a></li>
+            <li><a href="user_log.html">View User Activity Log</a></li>
+            <li><a href="blacklists.html">Check Blacklist</a></li>
+        </ul>
+        <button onclick="signOut()">Sign Out</button>
     </div>
 
     <script src="admin.js"></script>
 </body>
+
 </html>

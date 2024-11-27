@@ -1,97 +1,96 @@
-// Open modal for posting
+// Event handlers for modals
 function openPostModal() {
-    var postModal = document.getElementById('postModal');
+    var postModal = document.getElementById("postModal");
     openModal(postModal);
 }
 
-// Close modal for posting
 function closePostModal() {
-    var postModal = document.getElementById('postModal');
+    var postModal = document.getElementById("postModal");
     closeModal(postModal);
 }
 
-// Close modal for replying
 function closeReplyModal() {
-    var replyModal = document.getElementById('replyModal');
+    var replyModal = document.getElementById("replyModal");
     closeModal(replyModal);
-
 }
 
-// Close modal when clicking outside
 function closeModalOnWindowClick(event) {
-    var postModal = document.getElementById('postModal');
-    var replyModal = document.getElementById('replyModal');
-    if (event.target == postModal) {
-        closeModal(postModal);
-    } else if (event.target == replyModal) {
-        closeModal(replyModal);
+    if (event.target.id === "postModal" || event.target.id === "replyModal") {
+        closeModal(event.target);
     }
 }
 
-// Image preview for posting
+// Image preview handlers
 function previewPostImages() {
-    previewFiles('postImage', 'imagePreview');
+    previewFiles("postImage", "imagePreview");
 }
 
-// Image preview for replying
 function previewReplyImages() {
-    previewFiles('replyImage', 'replyImagePreview');
+    previewFiles("replyImage", "replyImagePreview");
 }
 
-// Handle post submission
+// Submission handlers
 function submitPost(event) {
     event.preventDefault();
+
+    //try
+    var postForm = document.getElementById("postForm");
+
     var postsSection = document.getElementById("postsSection");
     createPost(postForm, postsSection);
     closeModal(document.getElementById("postModal"));
 }
 
-// Handle reply submission
 function submitReply(event) {
     event.preventDefault();
+
+    var replyForm = document.getElementById("replyForm");
+
     var activeReplyTarget = document.querySelector(".activeReply");
     createReply(replyForm, activeReplyTarget);
     closeModal(document.getElementById("replyModal"));
 }
 
-// Handle "Reply" button click
+// Interaction handlers
 function handleReplyButtonClick(event) {
     if (event.target.textContent === "Reply") {
-        var replyModal = document.getElementById("replyModal");
-
-        // Reset file selection and image preview when creating a new reply
-        document.getElementById('replyImage').value = '';  // Reset file selection
-        document.getElementById('replyImagePreview').innerHTML = '';  // Reset image preview
-
-        openModal(replyModal);
-
-        // Set the active reply target
+        document.getElementById("replyImage").value = "";
+        document.getElementById("replyImagePreview").innerHTML = "";
+        openModal(document.getElementById("replyModal"));
         activeReplyTarget = event.target.closest(".post, .reply");
         document.querySelectorAll(".activeReply").forEach(el => el.classList.remove("activeReply"));
         activeReplyTarget.classList.add("activeReply");
     }
 }
 
-// Handle "Like" button click
 function handleLikeButtonClick(event) {
     if (event.target.classList.contains("like-button")) {
         var likeButton = event.target;
         var likeCountSpan = likeButton.nextElementSibling;
         var likeCount = parseInt(likeCountSpan.textContent.trim().split(" ")[0]);
 
-        // Toggle like count with double-click functionality
-        if (likeButton.classList.toggle('liked')) {
-            likeCount++;  // Increment like count
-        } else {
-            likeCount--;  // Decrement like count
-        }
+        likeButton.classList.toggle("liked") ? likeCount++ : likeCount--;
         likeCountSpan.textContent = ` ${likeCount} Likes`;
     }
 }
 
-// Handle "Report" button click
 function handleReportButtonClick(event) {
     if (event.target.classList.contains("report-button")) {
         alert("Your report has been sent to the administrator or the database.");
+    }
+}
+
+function filterPostsByDate() {
+    var filter = document.getElementById("dateFilter").value;
+    if (filter === "new") {
+        sortPostsByDate("desc"); // 新しい順
+    } else if (filter === "old") {
+        sortPostsByDate("asc"); // 古い順
+    } else if (filter === "3days") {
+        filterPostsByDays(3);
+    } else if (filter === "2week") {
+        filterPostsByDays(14);
+    } else if (filter === "1month") {
+        filterPostsByDays(30);
     }
 }
