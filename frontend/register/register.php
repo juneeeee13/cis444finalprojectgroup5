@@ -37,6 +37,8 @@ $stmt->bind_param("ssis", $user_username, $hashed_password, $user_age, $user_ema
 //The statement is ran first, then returns true or false.
 if ($stmt->execute()) {
     echo "Registration successful!";
+    echo "\nReturning you to the login page...";
+    header("Location: ../login/login.html");
 } else {
     echo "Error: " . $stmt->error;
 }
