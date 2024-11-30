@@ -7,9 +7,9 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
 }
 
 // Retrieve session information
-$user_id = $_SESSION['user_id'];
-$username = $_SESSION['username'];
-$isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0;
+$user_id = $_SESSION['user_id']; //Grab the user_id from the saved session state.
+$username = $_SESSION['username']; //Grab the username from the saved session state.
+$isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0; //Grab the isAdmin from the saved session state.
 ?>
 <!DOCTYPE html>
 <html>
