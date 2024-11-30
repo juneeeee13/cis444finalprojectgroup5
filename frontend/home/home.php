@@ -1,15 +1,19 @@
 <?php
-session_start(); // Start the session
+// Starts or continues a session.
+session_start(); //Keep this at the top of the file.
 
-// Check if the user is logged in
+// Check if the user is logged in by verifying that required session variables are set.
+// If these session variables are not set, it indicates that the user has not logged in,
+// or their session has expired. In this case, access to this page is denied.
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
     die("Access denied. Please log in first.");
 }
 
-// Retrieve session information
+// Retrieve session variables to display or use in the page. 
+// These variables were set during login (login.php) and are used here for personalization or role-based access control.
 $user_id = $_SESSION['user_id']; //Grab the user_id from the saved session state.
 $username = $_SESSION['username']; //Grab the username from the saved session state.
-$isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0; //Grab the isAdmin from the saved session state.
+$isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0; //If isAdmin is not set, defaults to 0. Allows admin-specific functionality or views.
 ?>
 <!DOCTYPE html>
 <html>
