@@ -1,82 +1,56 @@
 <?php
-//step 1: Connect to the Database
 
-//Load the environment variables
-$dotenv = parse_ini_file('../../.env');//this takes the credentials from the .env file
+//step 1: Load the environment variables
+$dotenv = parse_ini_file('../../.env'); //This takes the credentials from the .env file
 
-$servername = $dotenv['DB_SERVERNAME'];
-$username = $dotenv['DB_USERNAME'];
-$password = $dotenv['DB_PASSWORD'];
-$database = $dotenv['DB_DATABASE'];
+$servername = $dotenv['DB_SERVERNAME']; //Gets the servername for the database from the .env file
+$username = $dotenv['DB_USERNAME']; //Gets the MySQL username for the database from the .env file
+$password = $dotenv['DB_PASSWORD']; //Gets the MySQL password for the database from the .env file
+$database = $dotenv['DB_DATABASE']; //Gets the database we are using from the .env file
 
-$DBConnect = new mysqli($servername, $username, $password, $database);
+//step 2: Connect to the DataBase using the credentials we loaded from the .env file
+$DBConnect = new mysqli($servername, $username, $password, $database); 
 if($DBConnect->connect_error) {
     die("Connection failed: " . $DBConnect->connect_error);
 }
 
-//Step 2: Get the Form Data
+//Step 3: Use the login form data we got from the user.
 $user_username = $_POST['username'];
 $user_password = $_POST['password'];
 
 $TableName = "users";
-$SQLstring = "SELECT * FROM $TableName WHERE username = ?";
-$stmt = $DBConnect->prepare($SQLstring);
-$stmt->bind_param("s", $user_username);
-$stmt->execute();
-$result = $stmt->get_result();
+//This is the query we'll use to see if the username exists in the users table.
+$SQLstring = "SELECT * FROM $TableName WHERE username = ?"; // The question mark is a placeholder to prevent SQL injection.
 
+$stmt = $DBConnect->prepare($SQLstring); //This prepares a statement for executing SQL query.
+$stmt->bind_param("s", $user_username); //This replaces the question mark with the variable user_name of type string.
+$stmt->execute(); //This performs the database query.
+$result = $stmt->get_result(); //This returns the results of the query.
+
+//We only want 1 user with that username.
+//If less, no username exists. If more, duplicate usernames which is also bad.
 if($result->num_rows === 1) {
-    $user = $result->fetch_assoc();
+    $user = $result->fetch_assoc();//If unique user exists, stores row data into $user.
 } else {
-    die("Invalid username or password.");
+    die("Invalid username or password.");//Otherwise, invalid credentials.
 }
 
-//password verify hashes the plaintext password and checks it against the already hashed password from the database.
+//password_verify hashes the plaintext password and checks it against the already hashed password from the database.
 if(password_verify($user_password, $user['password'])) {
-    //password matches
+    //If passwords match
 
     session_start();
-    $_SESSION['user_id'] = $user['user_id'];
-    $_SESSION['username'] = $user['username'];
-    $_SESSION['isAdmin'] = $user['isAdmin']; //Role-based access
+    $_SESSION['user_id'] = $user['user_id']; //user id attached to session
+    $_SESSION['username'] = $user['username']; //username attached to session
+    $_SESSION['isAdmin'] = $user['isAdmin']; //In case we need to load an admin view
+    //Consider redirecting blacklisted accounts to banned page.
 
+    // This will redirect a user to the home screen upon a successful login.
     header("Location: ../home/home.php");
-    exit();
+    exit();// Exit stops further php code from being executed. Provides a "clean exit".
 } else {
     die("Invalid username or password.");
 }
-
-
-
-
-
-
-
-
-
-/*
-//Step 3: Hash the Password
-$hashed_password = password_hash($user_password, PASSWORD_DEFAULT);
-
-try{
-
-} catch(Exception $e) {
-    $connect_error = $e->getMessage();
-    $connect_errno = $e->getCode();
-}
-if($connect_errno) echo "<p>The database server is not available</p>";
-try{
-    $DBConnect->select_db($database);
-}catch(Exception $e){
-    $error = $e->getMessage();
-    $errno = $e->getCode();
-}
-if($errno) echo "<p>The database is not available. Error Code: ".$errno." Error:" .$error. "</p>";
-$TableName = "users";
-$SQLstring = "SELECT * FROM $TableName WHERE username = ? AND password = ?";
-$QueryResult = $DBConnect->query($SQLstring);
-*/
-
 
 die("Invalid credentials.");
 ?>
