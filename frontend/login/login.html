@@ -18,14 +18,14 @@
         </header>
         <div id="login-card">
             <h2>Login</h2>
-            <form id="loginForm">
+            <form id="loginForm" action="login.php" method="POST">
                 <div id="username-container" class="input-container">
-                    <label for="usernameInput">Username</label>
-                    <input id="usernameInput" class="input-field" type="text" maxlength="20">
+                    <label for="username">Username</label>
+                    <input id="username" name="username" class="input-field" type="text" maxlength="20">
                 </div>
                 <div id="password-container" class="input-container">
-                    <label for="passwordInput">Password</label>
-                    <input id="passwordInput" class="input-field" type="password" minLength="8" maxLength="128" autocomplete="off">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" class="input-field" type="password" minLength="8" maxLength="128" autocomplete="off">
                 </div>
                 <div id="button-container">
                     <div id="submit-container">

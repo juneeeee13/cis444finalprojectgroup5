@@ -18,27 +18,28 @@
         </header>
         <div id="register-card">
             <h2>Register</h2>
-            <form id="registerForm">
+            <form id="registerForm" action="register.php" method="POST">
                 <div id="username-container" class="input-container">
-                    <label for="usernameInput">Username</label>
-                    <input id="usernameInput" class="input-field" type="text" maxlength="20">
+                    <label for="username">Username</label>
+                    <input id="username" name="username" class="input-field" type="text" maxlength="20">
                 </div>
                 <div id="password-container" class="input-container">
-                    <label for="passwordInput">Password</label>
-                    <input id="passwordInput" class="input-field" type="password" autocomplete="off" minLength="8" maxlength="128">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" class="input-field" type="password" autocomplete="off" minLength="8" maxlength="128">
                 </div>
                 <div id="password-2-container" class="input-container">
-                    <label for="passwordInput2">Verify password</label>
-                    <input id="passwordInput2" class="input-field" type="password" autocomplete="off" minLength="8" maxlength="128">
+                    <label for="password2">Verify password</label>
+                    <input id="password2" class="input-field" type="password" autocomplete="off" minLength="8" maxlength="128">
                 </div>
                 <div id="email-container" class="input-container">
-                    <label for="emailInput">Email</label>
-                    <input id="emailInput" class="input-field" type="email" maxlength="254">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" class="input-field" type="email" maxlength="254">
                 </div>
                 <div id="email-verify-container"  class="input-container">
-                    <label for="emailInput2">Verify email</label>
-                    <input id="emailInput2" class="input-field" type="email" maxlength="254">
+                    <label for="email2">Verify email</label>
+                    <input id="email2" class="input-field" type="email" maxlength="254">
                 </div>
+                <!--
                 <div id="first-name-container" class="input-container">
                     <label for="firstNameInput">First name</label>
                     <input id="firstNameInput" class="input-field" type="text" maxlength="20">
@@ -47,10 +48,11 @@
                     <label for="lastNameInput">Last name</label>
                     <input id="lastNameInput" class="input-field" type="text" maxlength="20">
                 </div>
+                !-->
                 <div id="age-container" class="input-container">
                     <!-- reconsider using birthdate instead of age-->
-                    <label for="ageInput">Age</label>
-                    <input id="ageInput" class="input-field" type="text" maxlength="3">
+                    <label for="age">Age</label>
+                    <input id="age" name="age" class="input-field" type="text" maxlength="3">
                 </div>
                 <div id="button-container">
                     <input type="submit" id="registerSubmit" value="register">
