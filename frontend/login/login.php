@@ -3,6 +3,14 @@
 //Starts a new session or continues an existing one.
 session_start(); //Put this at the top of the file.
 
+//If a user is already logged in and tries to go to the login page, take them to settings where the logout button is.
+//Hmmm...if they go to login.html, it is not the same as login.php though and this code will likely not execute.
+if (isset($_SESSION['user_id']) || isset($_SESSION['username'])) {
+    header("Location: ../settings/settings.html");//code likely not executing because people going to login.html instead of login.php
+}
+
+
+
 //step 1: Load the environment variables
 $dotenv = parse_ini_file('../../.env'); //This takes the credentials from the .env file
 
@@ -43,7 +51,7 @@ $result = $stmt->get_result(); //This returns the results of the query.
 if($result->num_rows === 1) {
     $user = $result->fetch_assoc();//If unique user exists, stores row data into $user.
 } else {
-    die("Invalid username or password.");//Ends the script with an error message for invalid credentials.
+    die("Invalid username or password.<br>Click the back button and try again.");//Ends the script with an error message for invalid credentials.
 }
 
 
@@ -62,7 +70,7 @@ if(password_verify($user_password, $user['password'])) {
     $DBConnect->close(); //Close the database connection.
     exit();// Exit stops further php code from being executed. Provides a "clean exit".
 } else {
-    die("Invalid username or password."); //Ends the script with an error message.
+    die("Invalid username or password.<br>Click the back button and try again."); //Ends the script with an error message.
 }
 
 // Clean up
