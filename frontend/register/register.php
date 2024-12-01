@@ -78,7 +78,7 @@ $stmtInsert->bind_param("ssis", $user_username, $hashed_password, $user_age, $us
 if ($stmtInsert->execute()) {
     echo "Registration successful!";
     echo "\nReturning you to the login page...";
-    header("Location: ../login/login.html");
+    header("Location: ../login/login.php");
 } else {
     echo "Error: " . $stmtInsert->error;
 }
@@ -89,3 +89,60 @@ $stmtInsert->close();
 $DBConnect->close();
 
 ?>
+
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>Register</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="register.css">
+        <script src="register.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <h1>
+                <img class="icon" src="../../esdeeimgs/esdeebrowsericon.png">
+                    eSDee     
+                <img class="icon" src="../../esdeeimgs/pinkshell.png">
+                <br>
+                <img class="headerimage" src="../../esdeeimgs/waves.png">
+            </h1>
+        </header>
+        <div id="register-card">
+            <h2>Register</h2>
+            <form id="registerForm" action="register.php" method="POST">
+                <div id="username-container" class="input-container">
+                    <label for="username">Username</label>
+                    <input id="username" name="username" class="input-field" type="text" maxlength="20" pattern="[a-zA-Z0-9]{1,20}" required>
+                </div>
+                <div id="password-container" class="input-container">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" class="input-field" type="password" autocomplete="off" minLength="8" maxlength="128" required>
+                </div>
+                <div id="password-2-container" class="input-container">
+                    <label for="password2">Verify password</label>
+                    <input id="password2" class="input-field" type="password" autocomplete="off" minLength="8" maxlength="128" required>
+                </div>
+                <div id="email-container" class="input-container">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" class="input-field" type="email" maxlength="254" required>
+                </div>
+                <div id="email-verify-container"  class="input-container">
+                    <label for="email2">Verify email</label>
+                    <input id="email2" class="input-field" type="email" maxlength="254" required>
+                </div>
+                <div id="age-container" class="input-container">
+                    <label for="age">Age</label>
+                    <input id="age" name="age" class="input-field" type="number" maxlength="3" required>
+                </div>
+                <div id="button-container">
+                    <input type="submit" id="registerSubmit" value="register">
+                    <a href="../login/login.php" class="return-login"><span>Return to login</span></a>
+                </div>
+            </form>
+        </div>
+        <footer>
+            <img class="footerimage" src="../../esdeeimgs/esdeefooter.png">
+        </footer>
+    </body>
+</html>

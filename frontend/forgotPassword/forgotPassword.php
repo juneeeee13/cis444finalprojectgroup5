@@ -1,10 +1,14 @@
+<?php
+
+?>
+
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
-        <title>Forgot Username</title>
+        <title>Forgot Password</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="forgotUsername.css">
-        <script src="forgotUsername.js" defer></script>
+        <link rel="stylesheet" href="forgotPassword.css">
+        <script src="forgotPassword.js" defer></script>
     </head>
     <body>
         <header>
@@ -17,15 +21,15 @@
             </h1>
         </header>
         <div id="forgot-card">
-            <h2>Forgot Username?</h2>
-            <form id="forgotUsernameForm">
-                <div id="" class="input-container">
+            <h2>Forgot Password?</h2>
+            <form id="forgotPasswordForm">
+                <div id="email-container" class="input-container">
                     <label for="emailInput">enter email</label>
-                    <input id="emailInput" class="input-field" type="email">
+                    <input id="emailInput" class="input-field" type="email" maxlength="254">
                 </div>
                 <div id="button-container">
-                    <input type="submit" id="emailSubmit" value="Submit" maxlength="254">
-                    <a href="../login/login.html" class="return-login" style="text-decoration: none;"><span>Return to login</span></a>
+                    <input type="submit" id="emailSubmit" value="Submit">
+                    <a href="../login/login.php" class="return-login" style="text-decoration: none;"><span>Return to login</span></a>
                 </div>
             </form>
         </div>
