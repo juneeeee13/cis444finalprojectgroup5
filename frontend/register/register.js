@@ -7,7 +7,6 @@ dom.email.addEventListener("change", validateEmail);
 dom.email2.addEventListener("change", validateEmail2);
 dom.age.addEventListener("change", validateAge);
 
-dom.registerSubmit.addEventListener("click", verifyRegistration);
 dom.addEventListener("submit", verifyRegistration);
 
 var usernameValid = false;
@@ -19,7 +18,6 @@ var ageValid = false;
 
 var regUsername = /^[a-zA-Z0-9]{1,20}$/;
 var regEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
 var regAge = /^(?:[1-9][0-9]?|1[0-9]{2})$/;
 
 function validateUsername() {
@@ -106,11 +104,7 @@ function validateAge() {
 }
 
 function verifyRegistration(event) {
-    console.log("Inside verifyRegistration function.");
-    if(usernameValid && passwordValid && emailValid && email2Valid && sameEmail && ageValid) {
-        alert("Sending credentials to Database...");
-    }
-    else {
+    if(!usernameValid || !passwordValid || !emailValid || !email2Valid || !sameEmail || !ageValid) {
         event.preventDefault();
         alert("Fix the errors on the form before resubmitting.");
 
