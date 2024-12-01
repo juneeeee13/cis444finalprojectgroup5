@@ -6,7 +6,7 @@ session_start(); //Keep this at the top of the file.
 // If these session variables are not set, it indicates that the user has not logged in,
 // or their session has expired. In this case, access to this page is denied.
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
-    header("Location: ../login/login.html");// redirects a user who is not logged in and tries to access home.php to the login page
+    header("Location: ../login/login.html");// redirects a user who is not logged in that tries to access home.php, to the login page
     die("Access denied. Please log in first.");//if a user somehow bypasses the header redirect, they will only see this message.
 }
 
@@ -36,7 +36,7 @@ $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0; //If isAdmin 
         <img class="headerimage" src="../../esdeeimgs/waves.png">
     </h1>
     <div class="topnav">
-        <a href="../home/home.html">home</a>
+        <a href="../home/home.php">home</a>
         <a href="../about/about.html">about us</a>
         <a href="../food/food.html">food</a>
         <a href="../events/events.html">events</a>
