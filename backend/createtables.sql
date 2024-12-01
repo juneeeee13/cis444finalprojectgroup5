@@ -1,7 +1,7 @@
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     username VARCHAR(20) NOT NULL,
-    password VARCHAR(15) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     age INT NOT NULL,
     email VARCHAR(254) NOT NULL,
     isAdmin TINYINT(1) DEFAULT 0,
