@@ -13,6 +13,6 @@ Takehiko Shibuya: Web Developer, Information Architect, Graphic Designer, Databa
 
 Sawyer Sieja: Web Developer, Database Administrator, Network Administrator
 
-Victor Depaz: Web Developer
+Victor Depaz: Web Developer, Database Administrator
 
-Dongjin Li: Web Developer
+Dongjin Li: Web Developer, Database Administrator
