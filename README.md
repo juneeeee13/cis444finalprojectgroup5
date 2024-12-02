@@ -9,10 +9,10 @@ Professor: Shaun-inn Wu
 
 June Phillips : Project Manager, Marketing Representative, Database Administrator, Graphic Designer, Web Developer
 
-Takehiko Shibuya: Web Developer, Information Architect, Graphic Designer, Database Administrator
-
 Sawyer Sieja: Web Developer, Database Administrator, Network Administrator
 
-Victor Depaz: Web Developer, Database Administrator
+Takehiko Shibuya: Web Developer, Information Architect, Graphic Designer, Database Administrator
 
 Dongjin Li: Web Developer, Database Administrator
+
+Victor Depaz:
