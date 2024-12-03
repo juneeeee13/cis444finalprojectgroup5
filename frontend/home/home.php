@@ -35,16 +35,31 @@ $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0; //If isAdmin 
         <br>
         <img class="headerimage" src="../../esdeeimgs/waves.png">
     </h1>
-    <div class="topnav">
-        <a href="../home/home.php">home</a>
-        <a href="../about/about.html">about us</a>
-        <a href="../food/food.html">food</a>
-        <a href="../events/events.html">events</a>
-        <a href="../culture/culture.html">culture</a>
-        <a href="../place/place.html">places</a>
-        <a href="../settings/settings.html">settings</a>
-        <a href="../logout/logout.php" class="logout-button">Logout</a>
-    </div>
+    <div id="navArea">
+            <nav>
+                <div class="menuInner">
+                    <ul>
+                        <li><a href="../home/home.php"><img src="../../eSDee_logo/darkmode.png" alt="img"></a></li>
+                        <li><a href="../home/home.php">Home</a></li>
+                        <li><a href="../culture/culture.html">Culture</a></li>
+                        <li><a href="../events/events.html">Event</a></li>
+                        <li><a href="../food/food.html">Food</a></li>
+                        <li><a href="../place/place.html">Place</a></li>
+                        <li><a href="../about/about.html">About us</a></li>
+                        <li><a href="../settings/settings.html">Setting</a></li>
+                        <li><a href="../logout/logout.php">Setting</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="toggle_btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div id="mask"></div>
+        </div>
     <body>
         
         <div class="container">
