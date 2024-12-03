@@ -7,7 +7,7 @@ CIS444 - Web Programming
 Professor: Shaun-inn Wu
 
 
-June Phillips : Project Manager, Marketing Representative, Database Administrator, Graphic Designer, Web Developer
+June Phillips : Project Manager, Marketing Representative, Database Administrator, Graphic Designer, Web Developer, Database Administrator
 
 Sawyer Sieja: Web Developer, Database Administrator, Network Administrator
 
