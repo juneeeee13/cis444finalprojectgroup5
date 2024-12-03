@@ -33,25 +33,49 @@ h1 {
 
 
 /* ----------- NAV BAR ------------- */
-.topnav {
-    overflow: hidden;
-    background-color:  rgb(203, 221, 255);    
+#header nav {
+    display: block;
+    width: 220px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    transition: all 0.5s;
+    z-index: 3;
+    opacity: 1;
 }
 
-.topnav a {
-    font-family: 'alice';
-    font-size: 25px;
-    float: left;
-    display: block;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+#header nav .menuInner {
+    padding: 25px;
 }
-  
-.topnav a:hover {
-    background-color:  rgb(255, 236, 244);
-    color: black;
+
+#header nav .menuInner ul {
+    margin: 0;
+    padding: 0;
+}
+
+#header nav .menuInner ul li {
+    margin: 0;
+}
+
+#header nav .menuInner ul li a {
+    display: block;
+    color: #333;
+    font-size: 20px;
+    padding: 1rem;
+    transition-duration: 0.2s;
+}
+
+#header nav .menuInner ul li a img {
+    height: 100%;
+    width: 100%;
+    transition-duration: 0.2s;
+    box-shadow: none;
+    /* border-radius: none; */
+}
+
+#header nav .menuInner ul li a:hover {
+    color: #e4e4e4;
 }
 
 /* ----------- BODY ------------- */
