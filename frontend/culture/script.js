@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const formData = new FormData(replyForm);
                     try {
-                        const response = await fetch("index.php", {
+                        const response = await fetch("culture.php", {
                             method: "POST",
                             body: formData,
                         });
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".like-button").forEach((button) => {
         button.addEventListener("click", () => {
             const postId = button.getAttribute("data-post-id");
-            fetch("index.php", {
+            fetch("culture.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: `like_post=1&post_id=${postId}&action=like`,
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".report-button").forEach((button) => {
         button.addEventListener("click", () => {
             const postId = button.getAttribute("data-post-id");
-            fetch("index.php", {
+            fetch("culture.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: `report_post=1&post_id=${postId}`,
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".delete-button").forEach((button) => {
         button.addEventListener("click", () => {
             const postId = button.getAttribute("data-post-id");
-            fetch("index.php", {
+            fetch("culture.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: `delete_post=1&post_id=${postId}`,
@@ -212,7 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 formData.append("edit_post", "1");
                 formData.append("post_id", postId);
 
-                fetch("index.php", {
+                fetch("culture.php", {
                     method: "POST",
                     body: formData,
                 })
@@ -232,100 +232,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Like Reply
-    // document.querySelectorAll(".reply-like-button").forEach((button) => {
-    //     button.addEventListener("click", () => {
-    //         const replyId = button.getAttribute("data-reply-id");
-    //         fetch("index.php", {
-    //             method: "POST",
-    //             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //             body: `like_reply=1&reply_id=${replyId}`,
-    //         })
-    //             .then((response) => response.json())
-    //             .then((data) => {
-    //                 if (data.success) {
-    //                     alert("Reply liked!");
-    //                     // Optional: Update like count visually
-    //                 }
-    //             });
-    //     });
-    // });
-
-    // Like button functionality
-    // document.querySelectorAll(".like-button").forEach((button) => {
-    //     button.addEventListener("click", async () => {
-    //         const postId = button.getAttribute("data-post-id");
-
-    //         try {
-    //             const response = await fetch("index.php", {
-    //                 method: "POST",
-    //                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //                 body: `like_post=1&post_id=${postId}`,
-    //             });
-
-    //             if (!response.ok) {
-    //                 throw new Error("Network response was not ok");
-    //             }
-
-    //             const data = await response.json();
-    //             if (data.success) {
-    //                 const likeCount = button.querySelector(".like-count");
-    //                 const heartIcon = button.querySelector(".heart-icon");
-
-    //                 if (data.action === "liked") {
-    //                     heartIcon.textContent = "❤️"; // Filled heart for liked
-    //                     likeCount.textContent = parseInt(likeCount.textContent) + 1;
-    //                 } else if (data.action === "unliked") {
-    //                     heartIcon.textContent = "🤍"; // Empty heart for unliked
-    //                     likeCount.textContent = parseInt(likeCount.textContent) - 1;
-    //                 }
-    //             }
-    //         } catch (error) {
-    //             console.error("Error:", error);
-    //         }
-    //     });
-    // });
-
-    // document.querySelectorAll(".like-button").forEach((button) => {
-    //     button.addEventListener("click", async () => {
-    //         const postId = button.getAttribute("data-post-id");
-
-    //         try {
-    //             const response = await fetch("index.php", {
-    //                 method: "POST",
-    //                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //                 body: `like_post=1&post_id=${postId}`,
-    //             });
-
-    //             if (!response.ok) {
-    //                 throw new Error("Network response was not ok");
-    //             }
-
-    //             const data = await response.json();
-    //             if (data.success) {
-    //                 const likeCount = button.querySelector(".like-count");
-    //                 const heartIcon = button.querySelector(".heart-icon");
-
-    //                 if (data.action === "liked") {
-    //                     heartIcon.textContent = "❤️"; // Filled heart for liked
-    //                     likeCount.textContent = parseInt(likeCount.textContent) + 1;
-    //                 } else if (data.action === "unliked") {
-    //                     heartIcon.textContent = "🤍"; // Empty heart for unliked
-    //                     likeCount.textContent = parseInt(likeCount.textContent) - 1;
-    //                 }
-    //             }
-    //         } catch (error) {
-    //             console.error("Error:", error);
-    //         }
-    //     });
-    // });
+    
 
     document.querySelectorAll(".like-button").forEach((button) => {
         button.addEventListener("click", async () => {
             const postId = button.getAttribute("data-post-id");
 
             try {
-                const response = await fetch("index.php", {
+                const response = await fetch("culture.php", {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
                     body: `like_post=1&post_id=${postId}`,
@@ -360,7 +274,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const replyId = button.getAttribute("data-reply-id");
             const newContent = prompt("Edit your reply:");
             if (newContent) {
-                fetch("index.php", {
+                fetch("culture.php", {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
                     body: `edit_reply=1&reply_id=${replyId}&content=${encodeURIComponent(newContent)}`,
@@ -381,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", () => {
             const replyId = button.getAttribute("data-reply-id");
             if (confirm("Are you sure you want to delete this reply?")) {
-                fetch("index.php", {
+                fetch("culture.php", {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
                     body: `delete_reply=1&reply_id=${replyId}`,
@@ -401,7 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".reply-report-button").forEach((button) => {
         button.addEventListener("click", () => {
             const replyId = button.getAttribute("data-reply-id");
-            fetch("index.php", {
+            fetch("culture.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: `report_reply=1&reply_id=${replyId}`,
@@ -415,58 +329,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Reply-to-reply button functionality
-    // document.querySelectorAll(".reply-reply-button").forEach((button) => {
-    //     button.addEventListener("click", () => {
-    //         const replyId = button.getAttribute("data-reply-id");
-    //         const replyModal = document.getElementById(`replyModal-${replyId}`);
-
-    //         // Show the modal
-    //         replyModal.style.display = "block";
-
-    //         // Close modal on close button click
-    //         replyModal.querySelector(".replyClose").addEventListener("click", () => {
-    //             replyModal.style.display = "none";
-    //         });
-
-    //         // Close modal on outside click
-    //         window.addEventListener("click", (event) => {
-    //             if (event.target === replyModal) {
-    //                 replyModal.style.display = "none";
-    //             }
-    //         });
-
-    //         // Submit reply-to-reply form via AJAX
-    //         const replyForm = document.getElementById(`replyForm-${replyId}`);
-    //         if (!replyForm.hasAttribute("data-event-added")) {
-    //             replyForm.setAttribute("data-event-added", "true");
-    //             replyForm.addEventListener("submit", (e) => {
-    //                 e.preventDefault();
-
-    //                 const formData = new FormData(replyForm);
-    //                 fetch("index.php", {
-    //                     method: "POST",
-    //                     body: formData,
-    //                 })
-    //                     .then((response) => response.json())
-    //                     .then((data) => {
-    //                         if (data.success) {
-    //                             alert("Reply-to-reply submitted successfully!");
-    //                             replyForm.reset();
-    //                             replyModal.style.display = "none";
-    //                             location.reload(); // Optional: reload to see the update
-    //                         } else {
-    //                             alert(data.message);
-    //                         }
-    //                     })
-    //                     .catch((error) => {
-    //                         console.error("Error:", error);
-    //                         alert("An unexpected error occurred.");
-    //                     });
-    //             });
-    //         }
-    //     });
-    // });
 
     // Reply-to-reply button functionality
     document.querySelectorAll(".reply-reply-button").forEach((button) => {
@@ -498,7 +360,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const formData = new FormData(replyForm);
                     try {
-                        const response = await fetch("index.php", {
+                        const response = await fetch("culture.php", {
                             method: "POST",
                             body: formData,
                         });
@@ -534,7 +396,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function fetchTopPosts() {
         try {
-            const response = await fetch("index.php?action=get_top_posts");
+            const response = await fetch("culture.php?action=get_top_posts");
             if (!response.ok) {
                 throw new Error("Failed to fetch top posts");
             }
@@ -563,92 +425,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initial fetch on page load
     fetchTopPosts();
 
-
-
-
-
-    // document.getElementById("dateFilter").addEventListener("change", async (event) => {
-    //     const order = event.target.value; // "new" or "old"
-
-    //     try {
-    //         const response = await fetch(`index.php?action=filter_posts&order=${order}`);
-    //         if (!response.ok) {
-    //             throw new Error("Failed to fetch posts");
-    //         }
-
-    //         const posts = await response.json();
-    //         const postsSection = document.getElementById("postsSection");
-    //         postsSection.innerHTML = ""; // Clear current posts
-
-    //         posts.forEach(post => {
-    //             const postElement = document.createElement("div");
-    //             postElement.classList.add("post");
-    //             postElement.setAttribute("data-post-id", post.post_id);
-    //             postElement.innerHTML = `
-    //                 <div class='post-user-info'>
-    //                     <p>User ID: ${post.user_id}, Username: ${post.username}, Created at: ${post.created_at}</p>
-    //                 </div>
-    //                 <h3>${post.title}</h3>
-    //                 <p>${post.content}</p>
-    //                 <p><strong>Hashtags:</strong> ${post.hashtags}</p>
-    //                 <p><strong>Likes:</strong> ${post.like_no}</p>
-    //                 <button class='like-button' data-post-id='${post.post_id}'>
-    //                     <span class='heart-icon'>🤍</span>
-    //                     <span class='like-count'>${post.like_no}</span>
-    //                 </button>
-    //             `;
-    //             postsSection.appendChild(postElement);
-    //         });
-    //     } catch (error) {
-    //         console.error("Error fetching filtered posts:", error);
-    //     }
-    // });
-
-
-    // document.getElementById("dateFilter").addEventListener("change", async (event) => {
-    //     const order = event.target.value; // "new" or "old"
-    
-    //     try {
-    //         const response = await fetch(`index.php?action=filter_posts&order=${order}`);
-    //         if (!response.ok) {
-    //             throw new Error("Failed to fetch posts");
-    //         }
-    
-    //         const posts = await response.json();
-    //         const postsSection = document.getElementById("postsSection");
-    //         postsSection.innerHTML = ""; // Clear current posts
-    
-    //         posts.forEach(post => {
-    //             const postElement = document.createElement("div");
-    //             postElement.classList.add("post");
-    //             postElement.setAttribute("data-post-id", post.post_id);
-    //             postElement.innerHTML = `
-    //                 <div class='post-user-info'>
-    //                     <p>User ID: ${post.user_id}, Username: ${post.username}, Created at: ${post.created_at}</p>
-    //                 </div>
-    //                 <h3>${post.title}</h3>
-    //                 <p>${post.content}</p>
-    //                 <p><strong>Hashtags:</strong> ${post.hashtags}</p>
-    //                 <p><strong>Likes:</strong> ${post.like_no}</p>
-    //                 ${post.post_image ? `<img src="data:image/jpeg;base64,${post.post_image}" alt="Post Image" style="max-width: 100%; height: auto;">` : ''}
-    //                 <button class='like-button' data-post-id='${post.post_id}'>
-    //                     <span class='heart-icon'>🤍</span>
-    //                     <span class='like-count'>${post.like_no}</span>
-    //                 </button>
-    //             `;
-    //             postsSection.appendChild(postElement);
-    //         });
-    //     } catch (error) {
-    //         console.error("Error fetching filtered posts:", error);
-    //     }
-    // });
     
 
     document.getElementById("dateFilter").addEventListener("change", async (event) => {
         const order = event.target.value; // "new" or "old"
     
         try {
-            const response = await fetch(`index.php?action=filter_posts&order=${order}`);
+            const response = await fetch(`culture.php?action=filter_posts&order=${order}`);
             if (!response.ok) {
                 throw new Error("Failed to fetch posts");
             }
