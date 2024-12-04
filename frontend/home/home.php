@@ -24,7 +24,6 @@ $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0; //If isAdmin 
         <meta charset="UTF-8">
         <link rel = "icon" type = "image/png" src = "../../esdeeimgs/browsericon.png">
         <link rel = "stylesheet" type = "text/css" href = "home.css">
-        <link rel="stylesheet" type="text/css" href="../logout/logout.css">
         <script src="home.js"></script>
     </head>
 
@@ -35,47 +34,32 @@ $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0; //If isAdmin 
         <br>
         <img class="headerimage" src="../../esdeeimgs/waves.png">
     </h1>
-    <div id="navArea">
-            <nav>
-                <div class="menuInner">
-                    <ul>
-                        <li><a href="../home/home.php"><img src="../../eSDee_logo/darkmode.png" alt="img"></a></li>
-                        <li><a href="../home/home.php">Home</a></li>
-                        <li><a href="../culture/culture.html">Culture</a></li>
-                        <li><a href="../events/events.html">Event</a></li>
-                        <li><a href="../food/food.html">Food</a></li>
-                        <li><a href="../place/place.html">Place</a></li>
-                        <li><a href="../about/about.html">About us</a></li>
-                        <li><a href="../settings/settings.html">Setting</a></li>
-                        <li><a href="../logout/logout.php">Setting</a></li>
-                    </ul>
-                </div>
-            </nav>
-
-            <div class="toggle_btn">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
-            <div id="mask"></div>
-        </div>
+    <div class="topnav"> <!-- navigation bar, click to get to the other webpages -->
+        <a href="../home/home.html">home</a>
+        <a href="../about/about.html">about us</a>
+        <a href="../food/food.html">food</a>
+        <a href="../events/events.html">events</a>
+        <a href="../culture/culture.html">culture</a>
+        <a href="../place/place.html">places</a>
+        <a href="../settings/settings.html">settings</a>
+        <a href="../logout/logout.php">logout</a>
+    </div>
     <body>
         
         <div class="container">
-            <div class ="column left">
+            <div class ="column left"> <!--left hand side column -->
                 <p class= "leftcolumn">
                     <div class="card left">
                         <a href="../food/food.html">
                             <img class= "postimages" src="../../esdeeimgs/foodex.jpg">
-                            food
+                            food <!--shows a clickable image that redirects users to the food topic page-->
                         </a>
                     </div>
                     <br>
                     <div class="card left">
                         <a href="../events/events.html">
                             <img class= "postimages" src="../../esdeeimgs/eventsex.jpg">
-                            events
+                            events <!--shows a clickable image that redirects users to the events topic page-->
                         </a>
                     </div>
                 </p>
@@ -169,19 +153,19 @@ $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0; //If isAdmin 
                 </p>
             </div>
 
-            <div class ="column right">
+            <div class ="column right"> <!--right hand side column-->
                 <p class= "rightcolumn">
                     <div class="card right">
                         <a href="../culture/culture.html">
                             <img class= "postimages" src="../../esdeeimgs/cultureex.jpg">
-                            culture
+                            culture <!--shows a clickable image that redirects users to the culture topic page-->
                         </a>
                     </div>
                     <br>
                     <div class="card right">
                         <a href="../place/place.html">
                             <img class= "postimages" src="../../esdeeimgs/placesex.jpg">
-                            place
+                            place <!--shows a clickable image that redirects users to the place topic page-->
                         </a>
                     </div>
                 </p>
