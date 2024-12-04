@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post'])) {
     $stmt->execute();
 
     // Redirect to the homepage after submitting the post
-    header("Location: index.php");
+    header("Location: culture.php");
     exit();
 }
 
@@ -71,64 +71,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_reply'])) {
     $conn->close();
 
     // Redirect to the homepage after submitting the post
-    header("Location: index.php");
+    header("Location: culture.php");
     exit();
 }
 
 
-// Handle liking or unliking a post
-// if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['like_post'])) {
-//     $post_id = intval($_POST['post_id']); // Get the post ID
-//     $action = $_POST['action']; // Determine if the action is 'like' or 'unlike'
 
-//     // Prepare the query to increment or decrement the like count
-//     if ($action === 'like') {
-//         $stmt = $conn->prepare("UPDATE posts SET like_no = like_no + 1 WHERE post_id = ?");
-//     } elseif ($action === 'unlike') {
-//         $stmt = $conn->prepare("UPDATE posts SET like_no = like_no - 1 WHERE post_id = ?");
-//     }
-
-//     $stmt->bind_param("i", $post_id);
-//     $stmt->execute();
-
-//     // Return a success response in JSON format
-//     echo json_encode(["success" => true]);
-//     exit();
-// }
-
-// if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['like_post'])) {
-//     $post_id = intval($_POST['post_id']);
-//     $user_id = 1; // 仮のユーザーID（セッションなどから取得）
-
-//     // Check if the user already liked the post by tracking user sessions or cookies
-//     session_start();
-//     if (!isset($_SESSION['liked_posts'])) {
-//         $_SESSION['liked_posts'] = []; // Initialize if not set
-//     }
-
-//     if (in_array($post_id, $_SESSION['liked_posts'])) {
-//         // User already liked, so unlike the post
-//         $_SESSION['liked_posts'] = array_diff($_SESSION['liked_posts'], [$post_id]);
-
-//         // Decrement the like count in the database
-//         $stmt = $conn->prepare("UPDATE posts SET like_no = like_no - 1 WHERE post_id = ?");
-//         $stmt->bind_param("i", $post_id);
-//         $stmt->execute();
-
-//         echo json_encode(['success' => true, 'action' => 'unliked']);
-//     } else {
-//         // User has not liked, so like the post
-//         $_SESSION['liked_posts'][] = $post_id;
-
-//         // Increment the like count in the database
-//         $stmt = $conn->prepare("UPDATE posts SET like_no = like_no + 1 WHERE post_id = ?");
-//         $stmt->bind_param("i", $post_id);
-//         $stmt->execute();
-
-//         echo json_encode(['success' => true, 'action' => 'liked']);
-//     }
-//     exit();
-// }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['like_post'])) {
     $post_id = intval($_POST['post_id']);
@@ -233,26 +181,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 
-// if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_reply_to_reply'])) {
-//     $reply_id = intval($_POST['reply_id']);
-//     $content = trim($_POST['content']);
-//     $user_id = 1; // 現在のユーザーID（セッションなどから取得する）
-
-//     if (!empty($content)) {
-//         $stmt = $conn->prepare("INSERT INTO replies (post_id, content, user_id) VALUES (?, ?, ?)");
-//         $stmt->bind_param("isi", $reply_id, $content, $user_id);
-//         if ($stmt->execute()) {
-//             echo json_encode(['success' => true, 'message' => 'Reply-to-reply submitted successfully.']);
-//         } else {
-//             echo json_encode(['success' => false, 'message' => 'Failed to submit reply-to-reply.']);
-//         }
-//         $stmt->close();
-//     } else {
-//         echo json_encode(['success' => false, 'message' => 'Content cannot be empty.']);
-//     }
-//     exit;
-// }
-
 // Handle reply-to-reply submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_reply_to_reply'])) {
     $reply_id = intval($_POST['reply_id']); // Get the reply ID
@@ -285,7 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_reply_to_reply
     $conn->close();
 
     // Redirect to the homepage after submitting the reply-to-reply
-    header("Location: index.php");
+    header("Location: culture.php");
     exit();
 }
 
@@ -309,67 +237,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
     exit();
 }
 
-
-// if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'filter_posts') {
-//     $order = $_GET['order'] === 'new' ? 'DESC' : 'ASC'; // "new" → DESC, "old" → ASC
-
-//     $stmt = $conn->prepare("
-//         SELECT posts.*, users.username
-//         FROM posts
-//         JOIN users ON posts.user_id = users.user_id
-//         ORDER BY posts.created_at $order
-//     ");
-//     $stmt->execute();
-//     $result = $stmt->get_result();
-
-//     $filteredPosts = [];
-//     while ($row = $result->fetch_assoc()) {
-//         $filteredPosts[] = [
-//             'post_id' => $row['post_id'],
-//             'user_id' => $row['user_id'],
-//             'username' => $row['username'],
-//             'title' => $row['title'],
-//             'content' => $row['content'],
-//             'hashtags' => $row['hashtags'],
-//             'like_no' => $row['like_no'],
-//             'created_at' => $row['created_at'],
-//         ];
-//     }
-
-//     echo json_encode($filteredPosts);
-//     exit();
-// }
-
-// if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'filter_posts') {
-//     $order = $_GET['order'] === 'new' ? 'DESC' : 'ASC'; // "new" → DESC, "old" → ASC
-
-//     $stmt = $conn->prepare("
-//         SELECT posts.*, users.username
-//         FROM posts
-//         JOIN users ON posts.user_id = users.user_id
-//         ORDER BY posts.created_at $order
-//     ");
-//     $stmt->execute();
-//     $result = $stmt->get_result();
-
-//     $filteredPosts = [];
-//     while ($row = $result->fetch_assoc()) {
-//         $filteredPosts[] = [
-//             'post_id' => $row['post_id'],
-//             'user_id' => $row['user_id'],
-//             'username' => $row['username'],
-//             'title' => $row['title'],
-//             'content' => $row['content'],
-//             'hashtags' => $row['hashtags'],
-//             'like_no' => $row['like_no'],
-//             'created_at' => $row['created_at'],
-//             'post_image' => !empty($row['post_image']) ? base64_encode($row['post_image']) : null,
-//         ];
-//     }
-
-//     echo json_encode($filteredPosts);
-//     exit();
-// }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'filter_posts') {
     $order = $_GET['order'] === 'new' ? 'DESC' : 'ASC';
@@ -454,7 +321,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
             <h1><b>Culture</b></h1>
 
         
-            <img class="icon1" src="../../esdeeimgs/esdeebrowsericon.png" alt="img"> -->
+            <img class="icon1" src="../../esdeeimgs/esdeebrowsericon.png" alt="img">
             <img class="icon2" src="../../esdeeimgs/pinkshell.png" alt="img">
             <img class="headerimage" src="../../esdeeimgs/waves.png" alt="img">
     
@@ -561,23 +428,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
             </div>
         </div>
 
-        <!-- <div id="replyModalTemplate" class="modal" style="display:none;">
-            <div class="modal-content">
-                <span class="close replyClose">&times;</span>
-                <section id="postSection">
-                    <h2>Reply to Post</h2>
-                    <form id="replyFormTemplate" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="post_id" value="">
-                        <label for="replyText">Reply:</label>
-                        <textarea name="content" rows="4" cols="50" placeholder="Enter your reply here..."></textarea><br>
-                        <label for="replyImage">Images:</label>
-                        <input type="file" name="images[]" multiple><br><br>
-                        <div id="replyImagePreview"></div>
-                        <button type="submit" name="submit_reply">Submit Reply</button>
-                    </form>
-                </section>
-            </div>
-        </div> -->
 
 
 
@@ -712,34 +562,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
                 echo "</div>";
 
 
-
-
-                // // Fetch top posts sorted by like_no in descending order
-                // $stmt = $conn->prepare("SELECT title, hashtags, like_no FROM posts ORDER BY like_no DESC LIMIT 10");
-                // $stmt->execute();
-                // $result = $stmt->get_result();
-
-                // // Display the ranking section
-                // // echo "<div class='ranking-section'>";
-                // echo "<aside id='rankingSection'>";
-                // echo "<h2>Top Posts</h2>";
-                // // echo "<ul>";
-                // echo "<ol id='topPosts'>";
-
-                // while ($row = $result->fetch_assoc()) {
-                //     echo "<li>";
-                //     echo "<strong>Title:</strong> " . htmlspecialchars($row['title']) . "<br>";
-                //     echo "<strong>Hashtags:</strong> " . htmlspecialchars($row['hashtags']) . "<br>";
-                //     echo "<strong>Likes:</strong> " . $row['like_no'];
-                //     echo "</li>";
-                // }
-
-                // // echo "</ul>";
-                // // echo "</div>";
-                // echo "</ol>";
-                // echo "</aside>";
-
-                // $stmt->close();
             }
             ?>
 
