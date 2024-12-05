@@ -2,12 +2,12 @@
 // Check if the user is logged in
 session_start();
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../login/login.php");
+    header("Location: ../login/login.html");
     exit(); 
 }
 //check if it's admin
 if ($_SESSION['isAdmin'] != 1) {
-    header("Location: ../login/login.php");
+    header("Location: ../settings/settings.php");
     exit(); 
 }
 //Log out
