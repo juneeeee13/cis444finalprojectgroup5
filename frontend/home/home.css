@@ -110,9 +110,11 @@ p {
     background-repeat: repeat;
     text-align: center;
     width: 60%;
-    height: 30%;
+    /* height: 30%; */
+    height: auto;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card.middle {
@@ -126,8 +128,10 @@ p {
     background-repeat: repeat;
     text-align: left;
     width: 85%;
-    height: 30%;
+    /* height: 30%; */
+    height: auto;
     justify-content: space-between;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card.right {
@@ -141,9 +145,11 @@ p {
     background-repeat: repeat;
     text-align: center;
     width: 60%;
-    height: 30%;
+    /* height: 30%; */
+    height: auto;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .pfp {
@@ -160,8 +166,10 @@ p {
 .postimages {
     background-color: white;
     padding: 20px;
-    width: 200px;
-    height: 200px;
+    /* width: 200px; */
+    max-width: 100%; 
+    /* height: 200px; */
+    height: auto;
     float: left;
 }
 
@@ -172,10 +180,12 @@ p {
 
 .hashtag {
     color: #1877f2;
+    font-size: 14px;
 }
 
 .poststats {
     color: rgb(248, 200, 220);
+    font-size: 14px;
 }
 
 footer {
