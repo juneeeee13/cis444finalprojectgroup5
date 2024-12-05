@@ -31,6 +31,7 @@ if($DBConnect->connect_error) {
     die("Connection failed: " . $DBConnect->connect_error);
 }
 
+
 // Check if the session for liked posts is initialized
 if (!isset($_SESSION['liked_posts'])) {
     $_SESSION['liked_posts'] = [];
