@@ -16,9 +16,16 @@ $user_id = $_SESSION['user_id']; //Grab the user_id from the saved session state
 $username = $_SESSION['username']; //Grab the username from the saved session state.
 $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0; //If isAdmin is not set, defaults to 0. Allows admin-specific functionality or views.
 
-$conn = new mysqli("127.0.0.1", "team_5", "h7pqwqs1", "team_5");
+//step 1: Load the environment variables
+$dotenv = parse_ini_file('../../.env'); //This takes the credentials from the .env file
 
-// step 2: Connect to the DataBase using the credentials we loaded from the .env file
+$servername = $dotenv['DB_SERVERNAME']; //Gets the servername for the database from the .env file
+$username = $dotenv['DB_USERNAME']; //Gets the MySQL username for the database from the .env file
+$password = $dotenv['DB_PASSWORD']; //Gets the MySQL password for the database from the .env file
+$database = $dotenv['DB_DATABASE']; //Gets the database we are using from the .env file
+
+
+//step 2: Connect to the DataBase using the credentials we loaded from the .env file
 $DBConnect = new mysqli($servername, $username, $password, $database); 
 if($DBConnect->connect_error) {
     die("Connection failed: " . $DBConnect->connect_error);
@@ -35,7 +42,7 @@ $latestPosts = $conn->query("
 
 // Fetch the latest post from each category
 $categories = ['food', 'events', 'culture', 'place'];
-$latestByCategory = [];
+$latestByCategory = []; // Store the latest post for each category.
 
 foreach ($categories as $category) {
     $stmt = $conn->prepare("
@@ -46,13 +53,13 @@ foreach ($categories as $category) {
         ORDER BY posts.created_at DESC 
         LIMIT 1
     ");
-    $stmt->bind_param("s", $category);
+    $stmt->bind_param("s", $category); // Bind the category dynamically.
     $stmt->execute();
     $result = $stmt->get_result();
-    $latestByCategory[$category] = $result->fetch_assoc();
+    $latestByCategory[$category] = $result->fetch_assoc(); // Save the latest post for the category.
     $stmt->close();
 }
-$conn->close();
+$conn->close(); // Close the database connection.
 ?>
 
 <!DOCTYPE html>
