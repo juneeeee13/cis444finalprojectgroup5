@@ -16,14 +16,21 @@ $user_id = $_SESSION['user_id']; //Grab the user_id from the saved session state
 $username = $_SESSION['username']; //Grab the username from the saved session state.
 $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0; //If isAdmin is not set, defaults to 0. Allows admin-specific functionality or views.
 
-// connect to the database
-$conn = new mysqli("127.0.0.1", "team_5", "h7pqwqs1", "team_5");
+//step 1: Load the environment variables
+$dotenv = parse_ini_file('../../.env'); //This takes the credentials from the .env file
+
+$servername = $dotenv['DB_SERVERNAME']; //Gets the servername for the database from the .env file
+$username = $dotenv['DB_USERNAME']; //Gets the MySQL username for the database from the .env file
+$password = $dotenv['DB_PASSWORD']; //Gets the MySQL password for the database from the .env file
+$database = $dotenv['DB_DATABASE']; //Gets the database we are using from the .env file
+
 
 //step 2: Connect to the DataBase using the credentials we loaded from the .env file
 $DBConnect = new mysqli($servername, $username, $password, $database); 
 if($DBConnect->connect_error) {
     die("Connection failed: " . $DBConnect->connect_error);
 }
+
 
 // Check if the session for liked posts is initialized
 if (!isset($_SESSION['liked_posts'])) {
