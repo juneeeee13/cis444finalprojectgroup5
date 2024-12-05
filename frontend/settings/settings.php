@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <section class="settings-section">
         <nav>
             <ul>
-                <li><a href="../settings/index.php">My profile</a></li>
+                <li><a href="../settings/settings.php">My profile</a></li>
                 <li><a href="../home/home.php">Home</a></li>
                 <li><a href="../about/about.html">About us</a></li>
                 <li><a href="?logout=true">Log out</a></li>
@@ -127,18 +127,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <footer>
         <img class="footerimage" src="../../esdeeimgs/esdeefooter.png">
     </footer>
-    <!--
-    <script>
-        // JavaScript validation for the form
-        function validateForm() {
-            const password = document.getElementById('password-input').value;
-            if (password.length < 8) {
-                alert('Password must be at least 8 characters long.');
-                return false;
-            }
-            return true;
-        }
-    </script>
--->
+
 </body>
 </html>
