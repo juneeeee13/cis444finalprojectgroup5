@@ -329,3 +329,8 @@ button {
 button:hover {
     background-color: #ddd;
 }
+
+.hashtag {
+    color: #1877f2;
+    font-size: 14px;
+}
