@@ -32,7 +32,7 @@ if($DBConnect->connect_error) {
 }
 
 // Fetch the latest 3 posts regardless of category
-$latestPosts = $conn->query("
+$latestPosts = $DBConnect->query("
     SELECT posts.*, users.username 
     FROM posts 
     JOIN users ON posts.user_id = users.user_id 
@@ -45,7 +45,7 @@ $categories = ['food', 'events', 'culture', 'place'];
 $latestByCategory = []; // Store the latest post for each category.
 
 foreach ($categories as $category) {
-    $stmt = $conn->prepare("
+    $stmt = $DBConnect->prepare("
         SELECT posts.*, users.username 
         FROM posts 
         JOIN users ON posts.user_id = users.user_id 
@@ -59,7 +59,7 @@ foreach ($categories as $category) {
     $latestByCategory[$category] = $result->fetch_assoc(); // Save the latest post for the category.
     $stmt->close();
 }
-$conn->close(); // Close the database connection.
+$DBConnect->close(); // Close the database connection.
 ?>
 
 <!DOCTYPE html>

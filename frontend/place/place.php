@@ -26,9 +26,9 @@ $database = $dotenv['DB_DATABASE']; //Gets the database we are using from the .e
 
 
 //step 2: Connect to the DataBase using the credentials we loaded from the .env file
-$DBConnect = new mysqli($servername, $username, $password, $database); 
-if($DBConnect->connect_error) {
-    die("Connection failed: " . $DBConnect->connect_error);
+$conn = new mysqli($servername, $username, $password, $database); 
+if($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
 

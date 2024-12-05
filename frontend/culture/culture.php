@@ -40,9 +40,9 @@ if (!isset($_SESSION['liked_posts'])) {
 // Handle creating a new post
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post'])) {
     // Escape user inputs to prevent SQL injection
-    $title = $conn->real_escape_string($_POST['title']);
-    $content = $conn->real_escape_string($_POST['content']);
-    $hashtags = $conn->real_escape_string($_POST['hashtags']);
+    $title = $DBConnect->real_escape_string($_POST['title']);
+    $content = $DBConnect->real_escape_string($_POST['content']);
+    $hashtags = $DBConnect->real_escape_string($_POST['hashtags']);
     $category = basename($_SERVER['PHP_SELF'], '.php'); // Extracts 'culture', 'events', etc.
 
     // Handle image data (if any)
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post'])) {
     }
 
     // Insert data into the database
-    $stmt = $conn->prepare("INSERT INTO posts (user_id, title, content, post_image, created_at, hashtags, category) VALUES (?, ?, ?, ?, NOW(), ?, ?)");
+    $stmt = $DBConnect->prepare("INSERT INTO posts (user_id, title, content, post_image, created_at, hashtags, category) VALUES (?, ?, ?, ?, NOW(), ?, ?)");
     $stmt->bind_param("isssss", $user_id, $title, $content, $imageData, $hashtags, $category);
     $stmt->execute();
 
@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_reply'])) {
     }
 
     // Insert reply data into the database
-    $stmt = $conn->prepare("INSERT INTO replies (post_id, content, reply_image, user_id) VALUES (?, ?, ?, ?)");
+    $stmt = $DBConnect->prepare("INSERT INTO replies (post_id, content, reply_image, user_id) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("issi", $post_id, $content, $imageData, $user_id);
 
     if ($stmt->execute()) {
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_reply'])) {
         echo json_encode(['success' => false, 'message' => 'Failed to save reply.']);
     }
     $stmt->close();
-    $conn->close();
+    $DBConnect->close();
 
     // Redirect to the homepage after submitting the post
     header("Location: culture.php");
@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['like_post'])) {
     $_SESSION['liked_posts'][$user_id][] = $post_id;
 
     // Increment the like count in the database
-    $stmt = $conn->prepare("UPDATE posts SET like_no = like_no + 1 WHERE post_id = ?");
+    $stmt = $DBConnect->prepare("UPDATE posts SET like_no = like_no + 1 WHERE post_id = ?");
     $stmt->bind_param("i", $post_id);
 
     if ($stmt->execute()) {
@@ -141,11 +141,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['like_post'])) {
 // Handle editing a post
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_post'])) {
     $post_id = intval($_POST['post_id']);
-    $new_title = $conn->real_escape_string($_POST['title']);
-    $new_content = $conn->real_escape_string($_POST['content']);
+    $new_title = $DBConnect->real_escape_string($_POST['title']);
+    $new_content = $DBConnect->real_escape_string($_POST['content']);
 
     // Update the post in the database
-    $stmt = $conn->prepare("UPDATE posts SET title = ?, content = ? WHERE post_id = ?");
+    $stmt = $DBConnect->prepare("UPDATE posts SET title = ?, content = ? WHERE post_id = ?");
     $stmt->bind_param("ssi", $new_title, $new_content, $post_id);
     $stmt->execute();
     echo json_encode(["success" => true]);
@@ -157,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_post'])) {
     $post_id = intval($_POST['post_id']);
 
     // Delete the post from the database
-    $stmt = $conn->prepare("DELETE FROM posts WHERE post_id = ?");
+    $stmt = $DBConnect->prepare("DELETE FROM posts WHERE post_id = ?");
     $stmt->bind_param("i", $post_id);
     $stmt->execute();
     echo json_encode(["success" => true]);
@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['report_post'])) {
     $reporter_id = $_SESSION['user_id'];
 
     // Retrieve the user ID of the post owner
-    $stmt = $conn->prepare("SELECT user_id FROM posts WHERE post_id = ?");
+    $stmt = $DBConnect->prepare("SELECT user_id FROM posts WHERE post_id = ?");
     $stmt->bind_param("i", $post_id);
     $stmt->execute();
     $stmt->bind_result($user_reported);
@@ -189,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['report_post'])) {
     }
 
     // Insert the report into the database
-    $stmt = $conn->prepare("INSERT INTO reports (reporter_id, user_reported, post_id) VALUES (?, ?, ?)");
+    $stmt = $DBConnect->prepare("INSERT INTO reports (reporter_id, user_reported, post_id) VALUES (?, ?, ?)");
     $stmt->bind_param("iii", $reporter_id, $user_reported, $post_id);
 
     if ($stmt->execute()) {
@@ -209,10 +209,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Handle editing a reply
     if (isset($_POST['edit_reply']) && isset($_POST['reply_id']) && isset($_POST['content'])) {
         $reply_id = intval($_POST['reply_id']);
-        $content = $conn->real_escape_string($_POST['content']);
+        $content = $DBConnect->real_escape_string($_POST['content']);
 
         // Update the reply content in the database
-        $conn->query("UPDATE replies SET content = '$content' WHERE reply_id = $reply_id");
+        $DBConnect->query("UPDATE replies SET content = '$content' WHERE reply_id = $reply_id");
         echo json_encode(['success' => true, 'message' => 'Reply edited.']);
         exit;
     }
@@ -220,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Handle deleting a reply
     if (isset($_POST['delete_reply']) && isset($_POST['reply_id'])) {
         $reply_id = intval($_POST['reply_id']);
-        $conn->query("DELETE FROM replies WHERE reply_id = $reply_id");
+        $DBConnect->query("DELETE FROM replies WHERE reply_id = $reply_id");
         echo json_encode(['success' => true, 'message' => 'Reply deleted.']);
         exit;
     }
@@ -271,7 +271,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
     $current_category = basename($_SERVER['PHP_SELF'], '.php'); // Extract category from the file name
 
     // Fetch the top posts based on like count and category
-    $stmt = $conn->prepare("SELECT title, hashtags, like_no FROM posts WHERE category = ? ORDER BY like_no DESC LIMIT 10");
+    $stmt = $DBConnect->prepare("SELECT title, hashtags, like_no FROM posts WHERE category = ? ORDER BY like_no DESC LIMIT 10");
     $stmt->bind_param("s", $current_category); // Bind the category dynamically
     
     $stmt->execute();
@@ -298,7 +298,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
     $category = basename($_SERVER['PHP_SELF'], '.php'); // Get category dynamically based on current page
 
     // Fetch posts sorted by creation date and filtered by category
-    $stmt = $conn->prepare("
+    $stmt = $DBConnect->prepare("
         SELECT posts.*, users.username
         FROM posts
         JOIN users ON posts.user_id = users.user_id
@@ -312,7 +312,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
     $filteredPosts = [];
     while ($row = $result->fetch_assoc()) {
         // Fetch replies for the current post
-        $replyStmt = $conn->prepare("
+        $replyStmt = $DBConnect->prepare("
             SELECT replies.*, users.username AS reply_username
             FROM replies
             JOIN users ON replies.user_id = users.user_id
@@ -355,13 +355,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
 
 // Handle searching posts by hashtags
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'search_posts') {
-    $searchTerm = $conn->real_escape_string($_GET['query']);
+    $searchTerm = $DBConnect->real_escape_string($_GET['query']);
 
     // Fetch posts matching the search term in hashtags
     $category = basename($_SERVER['PHP_SELF'], '.php'); // Get category dynamically based on current page
 
     // Fetch posts matching the search term in hashtags and filtered by category
-    $stmt = $conn->prepare("
+    $stmt = $DBConnect->prepare("
         SELECT posts.*, users.username
         FROM posts
         JOIN users ON posts.user_id = users.user_id
@@ -507,7 +507,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
             <?php
             // Retrieve all posts from the database and order them by the creation date        
             $current_category = basename($_SERVER['PHP_SELF'], '.php'); // Extracts 'culture', 'events', etc.
-            $stmt = $conn->prepare("
+            $stmt = $DBConnect->prepare("
                 SELECT posts.*, users.username
                 FROM posts
                 JOIN users ON posts.user_id = users.user_id
@@ -575,7 +575,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
 
                 // Retrieve replies associated with the current post
                 $post_id = $row['post_id'];
-                $replies = $conn->query("
+                $replies = $DBConnect->query("
                     SELECT replies.*, users.username, users.user_id
                     FROM replies
                     JOIN users ON replies.user_id = users.user_id
@@ -637,7 +637,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
         $current_category = basename($_SERVER['PHP_SELF'], '.php'); // Extract category from the file name
 
         // Query to retrieve the top posts ordered by like count and category
-        $stmt = $conn->prepare("SELECT title, content, hashtags, like_no FROM posts WHERE category = ? ORDER BY like_no DESC LIMIT 5");
+        $stmt = $DBConnect->prepare("SELECT title, content, hashtags, like_no FROM posts WHERE category = ? ORDER BY like_no DESC LIMIT 5");
         $stmt->bind_param("s", $current_category); // Bind the category dynamically
 
         $stmt->execute();   // Execute the prepared statement
@@ -673,5 +673,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
 
 <?php
 // close connection
-$conn->close();
+$DBConnect->close();
 ?>
