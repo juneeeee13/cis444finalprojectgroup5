@@ -17,20 +17,13 @@ $username = $_SESSION['username']; //Grab the username from the saved session st
 $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0; //If isAdmin is not set, defaults to 0. Allows admin-specific functionality or views.
 
 // connect to the database
-$conn = new mysqli("localhost", "takeh", "Hanateddy@87", "sample_db");
-
-// Check if the connection to the database was successful
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// $conn = new mysqli("127.0.0.1", "team_5", "h7pqwqs1", "team_5");
+$conn = new mysqli("127.0.0.1", "team_5", "h7pqwqs1", "team_5");
 
 //step 2: Connect to the DataBase using the credentials we loaded from the .env file
-// $DBConnect = new mysqli($servername, $username, $password, $database); 
-// if($DBConnect->connect_error) {
-//     die("Connection failed: " . $DBConnect->connect_error);
-// }
+$DBConnect = new mysqli($servername, $username, $password, $database); 
+if($DBConnect->connect_error) {
+    die("Connection failed: " . $DBConnect->connect_error);
+}
 
 // Check if the session for liked posts is initialized
 if (!isset($_SESSION['liked_posts'])) {
@@ -61,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post'])) {
     header("Location: " . $category . ".php");
     exit();
 }
-
 
 // Handle reply submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_reply'])) {
@@ -204,7 +196,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['report_post'])) {
     exit();
 }
 
-
 // Handle requests related to replies and posts
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -266,7 +257,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //     exit();
     // }
 }
-
 
 // Handle fetching the top posts
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'get_top_posts') {
@@ -665,13 +655,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
         ?>
     </aside>
 
-
     <footer>
         <img class="footerimage" src="../../esdeeimgs/esdeefooter.png" alt="img">
     </footer>
 
 </body>
-
 
 </html>
 
