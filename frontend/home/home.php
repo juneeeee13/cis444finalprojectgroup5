@@ -6,8 +6,8 @@ session_start(); //Keep this at the top of the file.
 // If these session variables are not set, it indicates that the user has not logged in,
 // or their session has expired. In this case, access to this page is denied.
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
-    header("Location: ../login/login.html");// redirects a user who is not logged in that tries to access home.php, to the login page
-    die("Access denied. Please log in first.");//if a user somehow bypasses the header redirect, they will only see this message.
+    header("Location: ../login/login.html"); // redirects a user who is not logged in that tries to access home.php, to the login page
+    die("Access denied. Please log in first."); //if a user somehow bypasses the header redirect, they will only see this message.
 }
 
 // Retrieve session variables to display or use in the page. 
@@ -15,167 +15,178 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
 $user_id = $_SESSION['user_id']; //Grab the user_id from the saved session state.
 $username = $_SESSION['username']; //Grab the username from the saved session state.
 $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0; //If isAdmin is not set, defaults to 0. Allows admin-specific functionality or views.
+
+$conn = new mysqli("127.0.0.1", "team_5", "h7pqwqs1", "team_5");
+
+// step 2: Connect to the DataBase using the credentials we loaded from the .env file
+$DBConnect = new mysqli($servername, $username, $password, $database); 
+if($DBConnect->connect_error) {
+    die("Connection failed: " . $DBConnect->connect_error);
+}
+
+// Fetch the latest 3 posts regardless of category
+$latestPosts = $conn->query("
+    SELECT posts.*, users.username 
+    FROM posts 
+    JOIN users ON posts.user_id = users.user_id 
+    ORDER BY posts.created_at DESC 
+    LIMIT 3
+");
+
+// Fetch the latest post from each category
+$categories = ['food', 'events', 'culture', 'place'];
+$latestByCategory = [];
+
+foreach ($categories as $category) {
+    $stmt = $conn->prepare("
+        SELECT posts.*, users.username 
+        FROM posts 
+        JOIN users ON posts.user_id = users.user_id 
+        WHERE posts.category = ? 
+        ORDER BY posts.created_at DESC 
+        LIMIT 1
+    ");
+    $stmt->bind_param("s", $category);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $latestByCategory[$category] = $result->fetch_assoc();
+    $stmt->close();
+}
+$conn->close();
 ?>
+
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-        <meta charset="UTF-8">
-        <link rel = "icon" type = "image/png" src = "../../esdeeimgs/browsericon.png">
-        <link rel = "stylesheet" type = "text/css" href = "home.css">
-        <script src="home.js"></script>
-    </head>
+<head>
+    <title>Home</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <link rel="icon" href="../../esdeeimgs/2.png">
+    <link rel="stylesheet" type="text/css" href="home.css">
+    <link rel="stylesheet" type="text/css" href="../logout/logout.css">
+    <script src="home.js"></script>
+</head>
+
+<body>
 
     <h1>
         <img class="icon" src="../../esdeeimgs/esdeebrowsericon.png">
-            eSDee     
+        eSDee
         <img class="icon" src="../../esdeeimgs/pinkshell.png">
         <br>
         <img class="headerimage" src="../../esdeeimgs/waves.png">
     </h1>
-    <div class="topnav"> <!-- navigation bar, click to get to the other webpages -->
+    <div class="topnav">
         <a href="../home/home.php">home</a>
         <a href="../about/about.html">about us</a>
-        <a href="../food/food.html">food</a>
-        <a href="../events/events.html">events</a>
+        <a href="../food/food.php">food</a>
+        <a href="../events/events.php">events</a>
         <a href="../culture/culture.php">culture</a>
-        <a href="../place/place.html">places</a>
+        <a href="../place/place.php">places</a>
         <a href="../settings/settings.php">settings</a>
-        <a href="../logout/logout.php" class="logout-button">Logout</a>
     </div>
-    <body>
-        
-        <div class="container">
-            <div class ="column left"> <!--left hand side column -->
-                <p class= "leftcolumn">
-                    <div class="card left">
-                        <a href="../food/food.html">
-                            <img class= "postimages" src="../../esdeeimgs/foodex.jpg">
-                            food <!--shows a clickable image that redirects users to the food topic page-->
-                        </a>
-                    </div>
-                    <br>
-                    <div class="card left">
-                        <a href="../events/events.html">
-                            <img class= "postimages" src="../../esdeeimgs/eventsex.jpg">
-                            events <!--shows a clickable image that redirects users to the events topic page-->
-                        </a>
-                    </div>
-                </p>
-            </div>
-                
-            <div class ="column middle">
-                <h1  style="font-size: 25px"> new posts for you... </h1>
 
-                <p class="middlecolumn">
-                    <div class="card middle">
-                        <img class="pfp" src="../../esdeeimgs/girlpfp.jpg">
-                        <br>
-                        <br>
-                        <div class="username">
-                            @user1 posted to culture :
-                        </div>
-                        <br>
-                        <img class= "postimages" src="../../esdeeimgs/summernails.jpg">
-                        <br>
-                        <br>
-                        new summer nails &#9829;
-                        i love local nail salons !
-                        <br>
-                        <br>
-                        <div class="hashtag">
-                            #nails #demure #summer #beach #itgirl #tropical #aesthetic
-                        </div>
-                        <br>
-                        <div class="poststats">
-                            &#9829; 50 likes
-                            <br>
-                            >> 10 comments
-                        </div>
-                    </div>
-
-                    <div class="card middle">
-                        <img class="pfp" src="../../esdeeimgs/girlpfp2.jpg">
-                        <br>
-                        <br>
-                        <div class="username">
-                            @user2 posted to food :
-                        </div>
-                        <br>
-                        <img class= "postimages" src="../../esdeeimgs/avocadotoast.jpg">
-                        <br>
-                        <br>
-                        avocado toast is the perfect brunch meal !
-                        <br>
-                        <br>
-                        <div class="hashtag">
-                            #food #foodie #aesthetic #avocado #summerloving
-                        </div>
-                        <br>
-                        <div class="poststats">
-                            &#9829; 100 likes
-                            <br>
-                            >> 20 comments
-                        </div>
-                    </div>
-
-                    <div class="card middle">
-                        <img class="pfp" src="../../esdeeimgs/girlpfp3.jpg">
-                        <br>
-                        <br>
-                        <div class="username">
-                            @user3 posted to events :
-                        </div>
-                        <br>
-                        <img class= "postimages" src="../../esdeeimgs/yoga.jpg">
-                        <br>
-                        <br>
-                        just finished a yoga class! feel the burn!
-                        <br>
-                        Thursdays : 7am-8am
-                        <br>
-                        @ LA Fitness 4S Ranch
-                        <br>
-                        Instructor: 
-                        <br>
-                        <br>
-                        <div class="hashtag">
-                            #wellness #health #healthandwellness #yoga #pink #burn
-                        </div>
-                        <br>
-                        <div class="poststats">
-                            &#9829; 258490 likes
-                            <br>
-                            >> 1000 comments
-                        </div>
-                    </div>
-                </p>
+    <div class="container">
+        <!-- Left Column -->
+        <div class="column left">
+            <div class="card left">
+                <h2>Latest from Food</h2>
+                <?php if ($latestByCategory['food']): ?>
+                    <p><strong><?php echo htmlspecialchars($latestByCategory['food']['title']); ?></strong></p>
+                    <p><?php echo htmlspecialchars($latestByCategory['food']['content']); ?></p>
+                    <p><strong>By:</strong> <?php echo htmlspecialchars($latestByCategory['food']['username']); ?></p>
+                    <p><strong>Created at:</strong> <?php echo htmlspecialchars($latestByCategory['food']['created_at']); ?></p>
+                    <p class="hashtag"> <?php echo htmlspecialchars($latestByCategory['food']['hashtags']); ?></p>
+                    <p><strong>Likes:</strong> <?php echo htmlspecialchars($latestByCategory['food']['like_no']); ?></p>
+                    <?php if (!empty($latestByCategory['food']['post_image'])): ?>
+                        <img src="data:image/jpeg;base64,<?php echo base64_encode($latestByCategory['food']['post_image']); ?>" alt="Post Image" style="max-width: 150px; height: auto;">
+                    <?php endif; ?>
+                <?php else: ?>
+                    <p>No posts available.</p>
+                <?php endif; ?>
             </div>
 
-            <div class ="column right"> <!--right hand side column-->
-                <p class= "rightcolumn">
-                    <div class="card right">
-                        <a href="../culture/culture.html">
-                            <img class= "postimages" src="../../esdeeimgs/cultureex.jpg">
-                            culture <!--shows a clickable image that redirects users to the culture topic page-->
-                        </a>
-                    </div>
-                    <br>
-                    <div class="card right">
-                        <a href="../place/place.html">
-                            <img class= "postimages" src="../../esdeeimgs/placesex.jpg">
-                            place <!--shows a clickable image that redirects users to the place topic page-->
-                        </a>
-                    </div>
-                </p>
+            <div class="card left">
+                <h2>Latest from Events</h2>
+                <?php if ($latestByCategory['events']): ?>
+                    <p><strong><?php echo htmlspecialchars($latestByCategory['events']['title']); ?></strong></p>
+                    <p><?php echo htmlspecialchars($latestByCategory['events']['content']); ?></p>
+                    <p><strong>By:</strong> <?php echo htmlspecialchars($latestByCategory['events']['username']); ?></p>
+                    <p><strong>Created at:</strong> <?php echo htmlspecialchars($latestByCategory['events']['created_at']); ?></p>
+                    <p class="hashtag"> <?php echo htmlspecialchars($latestByCategory['events']['hashtags']); ?></p>
+                    <p><strong>Likes:</strong> <?php echo htmlspecialchars($latestByCategory['events']['like_no']); ?></p>
+                    <?php if (!empty($latestByCategory['events']['post_image'])): ?>
+                        <img src="data:image/jpeg;base64,<?php echo base64_encode($latestByCategory['events']['post_image']); ?>" alt="Post Image" style="max-width: 150px; height: auto;">
+                    <?php endif; ?>
+                <?php else: ?>
+                    <p>No posts available.</p>
+                <?php endif; ?>
             </div>
         </div>
 
-        <br>
-    </body>
+        <!-- Middle Column -->
+        <div class="column middle">
+            <h1>New posts for you...</h1>
+            <?php while ($post = $latestPosts->fetch_assoc()): ?>
+                <div class="card middle">
+                    <h3><?php echo htmlspecialchars($post['title']); ?></h3>
+                    <p><?php echo htmlspecialchars($post['content']); ?></p>
+                    <p><strong>By:</strong> <?php echo htmlspecialchars($post['username']); ?></p>
+                    <p><strong>Created at:</strong> <?php echo htmlspecialchars($post['created_at']); ?></p>
+                    <p class="hashtag"><?php echo htmlspecialchars($post['hashtags']); ?></p>
+                    <p><strong>Likes:</strong> <?php echo htmlspecialchars($post['like_no']); ?></p>
+                    <?php if (!empty($post['post_image'])): ?>
+                        <img src="data:image/jpeg;base64,<?php echo base64_encode($post['post_image']); ?>" alt="Post Image" style="max-width: 150px; height: auto;">
+                    <?php endif; ?>
+                </div>
+            <?php endwhile; ?>
+        </div>
 
-    <footer>
-        <img class="footerimage" src="../../esdeeimgs/esdeefooter.png">
-    </footer>
+        <!-- Right Column -->
+        <div class="column right">
+            <div class="card right">
+                <h2>Latest from Culture</h2>
+                <?php if ($latestByCategory['culture']): ?>
+                    <p><strong><?php echo htmlspecialchars($latestByCategory['culture']['title']); ?></strong></p>
+                    <p><?php echo htmlspecialchars($latestByCategory['culture']['content']); ?></p>
+                    <p><strong>By:</strong> <?php echo htmlspecialchars($latestByCategory['culture']['username']); ?></p>
+                    <p><strong>Created at:</strong> <?php echo htmlspecialchars($latestByCategory['culture']['created_at']); ?></p>
+                    <p class="hashtag"> <?php echo htmlspecialchars($latestByCategory['culture']['hashtags']); ?></p>
+                    <p><strong>Likes:</strong> <?php echo htmlspecialchars($latestByCategory['culture']['like_no']); ?></p>
+                    <?php if (!empty($latestByCategory['culture']['post_image'])): ?>
+                        <img src="data:image/jpeg;base64,<?php echo base64_encode($latestByCategory['culture']['post_image']); ?>" alt="Post Image" style="max-width: 150px; height: auto;">
+                    <?php endif; ?>
+                <?php else: ?>
+                    <p>No posts available.</p>
+                <?php endif; ?>
+            </div>
+
+            <div class="card right">
+                <h2>Latest from Place</h2>
+                <?php if ($latestByCategory['place']): ?>
+                    <p><strong><?php echo htmlspecialchars($latestByCategory['place']['title']); ?></strong></p>
+                    <p><?php echo htmlspecialchars($latestByCategory['place']['content']); ?></p>
+                    <p><strong>By:</strong> <?php echo htmlspecialchars($latestByCategory['place']['username']); ?></p>
+                    <p><strong>Created at:</strong> <?php echo htmlspecialchars($latestByCategory['place']['created_at']); ?></p>
+                    <p class="hashtag"> <?php echo htmlspecialchars($latestByCategory['place']['hashtags']); ?></p>
+                    <p><strong>Likes:</strong> <?php echo htmlspecialchars($latestByCategory['place']['like_no']); ?></p>
+                    <?php if (!empty($latestByCategory['place']['post_image'])): ?>
+                        <img src="data:image/jpeg;base64,<?php echo base64_encode($latestByCategory['place']['post_image']); ?>" alt="Post Image" style="max-width: 150px; height: auto;">
+                    <?php endif; ?>
+                <?php else: ?>
+                    <p>No posts available.</p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+
+    <br>
+</body>
+
+<footer>
+    <img class="footerimage" src="../../esdeeimgs/esdeefooter.png">
+</footer>
+
 </html>
