@@ -55,7 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post'])) {
     exit();
 }
 
-
 // Handle reply submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_reply'])) {
     $post_id = intval($_POST['post_id']); // Get the post ID
@@ -197,7 +196,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['report_post'])) {
     exit();
 }
 
-
 // Handle requests related to replies and posts
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -259,7 +257,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //     exit();
     // }
 }
-
 
 // Handle fetching the top posts
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'get_top_posts') {
@@ -657,7 +654,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
         $stmt->close(); // Close the prepared statement to free resources
         ?>
     </aside>
-
 
     <footer>
         <img class="footerimage" src="../../esdeeimgs/esdeefooter.png" alt="img">
