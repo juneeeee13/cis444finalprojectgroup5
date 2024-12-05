@@ -107,3 +107,5 @@ DELETE FROM replies WHERE reply_id = 1;
 -- Delete a specific post from the 'posts' table using its unique 'post_id'.
 -- Ensure all dependent rows in other tables (like 'replies' and 'reports') are removed first.
 DELETE FROM posts WHERE post_id = 1;
+
+

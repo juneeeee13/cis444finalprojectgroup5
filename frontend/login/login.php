@@ -64,6 +64,13 @@ if(password_verify($user_password, $user['password'])) {
     $_SESSION['username'] = $user['username']; //username attached to session
     $_SESSION['isAdmin'] = $user['isAdmin']; //In case we need to load an admin view
 
+    if ($_SESSION['isAdmin'] == 1) {
+        header("Location: ../admin/admin.php");
+        $stmt->close(); //Close the prepaired statement.
+        $DBConnect->close(); //Close the database connection.
+        exit(); 
+    }
+
     // This will redirect a user to the home screen upon a successful login.
     header("Location: ../home/home.php");
     $stmt->close(); //Close the prepaired statement.

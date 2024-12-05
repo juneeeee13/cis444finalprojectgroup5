@@ -42,7 +42,7 @@ $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0; //If isAdmin 
         <a href="../events/events.html">events</a>
         <a href="../culture/culture.html">culture</a>
         <a href="../place/place.html">places</a>
-        <a href="../settings/settings.html">settings</a>
+        <a href="../settings/settings.php">settings</a>
         <a href="../logout/logout.php" class="logout-button">Logout</a>
     </div>
     <body>

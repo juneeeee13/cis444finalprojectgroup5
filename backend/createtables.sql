@@ -41,3 +41,16 @@ CREATE TABLE replies (
     FOREIGN KEY (post_id) REFERENCES posts(post_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
+
+CREATE TABLE replies (
+    reply_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    post_id INT,
+    content VARCHAR(300) NOT NULL,
+    image VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_id INT,
+    FOREIGN KEY (post_id) REFERENCES posts(post_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+
