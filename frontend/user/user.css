@@ -66,9 +66,12 @@ h1 {
     align-items: center;
     margin: 20px;
     border-radius: 10px;
-    
-    
 
+}
+
+
+.button-section {
+    margin-top: 20px; 
 }
 
 footer {
@@ -83,4 +86,8 @@ footer {
     max-height: 100%;
     align-items: center;
     margin-top: 100px;
+}
+a {
+    text-decoration: none; 
+    color: inherit;        
 }

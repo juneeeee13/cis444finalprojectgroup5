@@ -1,6 +1,6 @@
 <?php
 // connect to the database
-$conn = new mysqli("localhost", "takeh", "Hanateddy@87", "sample_db");
+$conn = new mysqli("localhost", "root", "root", "esdee");
 
 // Check if the connection to the database was successful
 if ($conn->connect_error) {
@@ -341,10 +341,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
             <nav>
                 <div class="menuInner">
                     <ul>
-                        <li><a href="../home/home.html"><img src="../../eSDee-logo/darkmode.png" alt="img"></a></li>
+                        <li><a href="../home/home.php"><img src="../../eSDee-logo/darkmode.png" alt="img"></a></li>
                         <!-- <li><a href="../home/home.html"><img src="img/darkmode.png" alt="img"></a></li> -->
-                        <li><a href="../home/home.html">Home</a></li>
-                        <li><a href="../culture/culture.html">Culture</a></li>
+                        <li><a href="../home/home.php">Home</a></li>
+                        <li><a href="../culture/culture.php">Culture</a></li>
                         <li><a href="../events/events.html">Event</a></li>
                         <li><a href="../food/food.html">Food</a></li>
                         <li><a href="../place/place.html">Place</a></li>
@@ -439,7 +439,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
             $result = $conn->query("
                 SELECT posts.*, users.username, users.user_id
                 FROM posts
-                JOIN users ON posts.user_id = users.user_id
+                JOIN users ON posts.poster_id = users.user_id
                 ORDER BY posts.created_at DESC
             ");
 
@@ -447,7 +447,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
                 echo "<div class='post' data-post-id='" . $row['post_id'] . "'>";
 
                 echo "<div class='post-user-info'>";
-                echo "<p>User ID: {$row['user_id']}, Username: {$row['username']}, Created at: {$row['created_at']}</p>";
+                echo "<p>User ID: {$row['user_id']},
+                <a href='../user/user.php?user_id={$row['user_id']}' style='text-decoration: none; color: blue;'>
+                 Username: {$row['username']}</a>, Created at: {$row['created_at']}</p>";
                 echo "</div>";
 
                 echo "<h3>" . htmlspecialchars($row['title']) . "</h3>";

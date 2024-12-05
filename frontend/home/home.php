@@ -35,11 +35,11 @@ $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0; //If isAdmin 
         <img class="headerimage" src="../../esdeeimgs/waves.png">
     </h1>
     <div class="topnav"> <!-- navigation bar, click to get to the other webpages -->
-        <a href="../home/home.html">home</a>
+        <a href="../home/home.php">home</a>
         <a href="../about/about.html">about us</a>
         <a href="../food/food.html">food</a>
         <a href="../events/events.html">events</a>
-        <a href="../culture/culture.html">culture</a>
+        <a href="../culture/culture.php">culture</a>
         <a href="../place/place.html">places</a>
         <a href="../settings/settings.php">settings</a>
         <a href="../logout/logout.php" class="logout-button">Logout</a>
