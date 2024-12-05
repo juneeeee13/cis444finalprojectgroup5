@@ -3,14 +3,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const postModal = document.getElementById("postModal");
     const postButton = document.getElementById("postButton");
     const postClose = document.querySelector(".postClose");
+
     // Show the modal
     postButton.addEventListener("click", () => {
         postModal.style.display = "block";
     });
+
     // Hide the modal
     postClose.addEventListener("click", () => {
         postModal.style.display = "none";
     });
+
     // Close modal on outside click
     window.addEventListener("click", (event) => {
         if (event.target === postModal) {
@@ -18,30 +21,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Image preview functionality
+    // Handle image preview functionality for "Create Post"
     document.getElementById('postImage').addEventListener('change', (event) => {
-        // const imagePreview = document.getElementById('imagePreview');
-        // imagePreview.innerHTML = ''; // Clear existing previews
         const preview = document.getElementById("imagePreview");
-        preview.innerHTML = ""; // 既存のプレビューをクリア
+        preview.innerHTML = "";// Clear existing previews
 
         const files = event.target.files;
         for (let i = 0; i < files.length; i++) {
-            // const file = files[i];
             const reader = new FileReader();
             reader.onload = (e) => {
                 const img = document.createElement('img');
                 img.src = e.target.result;// Set the preview image source
                 img.style.maxWidth = '100px';
                 img.style.margin = '5px';
-                imagePreview.appendChild(img);// Append image to preview container
-                preview.appendChild(img);
+                preview.appendChild(img);// Append the image to the preview container
             };
-            reader.readAsDataURL(file);// Read file as data URL
+            reader.readAsDataURL(files);// Convert the file to a data URL
         }
     });
 
-
+    // Handle reply functionality
     document.querySelectorAll(".reply-button").forEach((button) => {
         button.addEventListener("click", () => {
             const postId = button.getAttribute("data-post-id");
@@ -62,10 +61,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
 
-            // Submit reply form via AJAX
+            // Handle form submission for replies
             const replyForm = document.getElementById(`replyForm-${postId}`);
             if (!replyForm.hasAttribute("data-event-added")) {
-                replyForm.setAttribute("data-event-added", "true");
+                replyForm.setAttribute("data-event-added", "true");// Prevent duplicate event listeners
                 replyForm.addEventListener("submit", async (e) => {
                     e.preventDefault();
 
@@ -82,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         const data = await response.json();
                         if (data.success) {
+                            // Append the new reply to the replies container
                             const repliesContainer = document.querySelector(
                                 `.post[data-post-id="${postId}"] .replies`
                             );
@@ -90,8 +90,8 @@ document.addEventListener("DOMContentLoaded", () => {
                             newReply.innerHTML = `<p>${formData.get("content")}</p>`;
                             repliesContainer.appendChild(newReply);
 
-                            replyForm.reset();
-                            replyModal.style.display = "none";
+                            replyForm.reset();// Clear the form
+                            replyModal.style.display = "none";// Hide the modal
                         } else {
                             console.error("Reply failed:", data.message);
                             alert(data.message);
@@ -100,47 +100,65 @@ document.addEventListener("DOMContentLoaded", () => {
                         console.error("Error:", error);
                         // alert("An unexpected error occurred. Please try again later.");
                     }
-                }, { once: true });
+                }, { once: true });// Ensure the event listener is added only once
             }
         });
     });
 
-
-
-
-    // Like button functionality
+    // Handle like functionality
     document.querySelectorAll(".like-button").forEach((button) => {
-        button.addEventListener("click", () => {
+        button.addEventListener("click", async () => {
             const postId = button.getAttribute("data-post-id");
-            fetch("culture.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: `like_post=1&post_id=${postId}&action=like`,
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.success) {
-                        alert("Post liked!");
-                    }
+
+            try {
+                const response = await fetch("culture.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: `like_post=1&post_id=${postId}`,
                 });
+
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+
+                const data = await response.json();
+                if (data.success) {
+                    // Update the like count and icon
+                    const likeCount = button.querySelector(".like-count");
+                    const heartIcon = button.querySelector(".heart-icon");
+                    heartIcon.textContent = "❤️"; // Filled heart icon
+                    likeCount.textContent = parseInt(likeCount.textContent) + 1;
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+            }
         });
     });
 
     // Handle reporting a post
     document.querySelectorAll(".report-button").forEach((button) => {
-        button.addEventListener("click", () => {
+        button.addEventListener("click", async () => {
             const postId = button.getAttribute("data-post-id");
-            fetch("culture.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: `report_post=1&post_id=${postId}`,
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.success) {
-                        alert("Post reported!");
-                    }
+
+            try {
+                const response = await fetch("culture.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: `report_post=1&post_id=${postId}`,
                 });
+
+                const data = await response.json();
+                if (data.success) {
+                    alert("Report has been sent to the admin.");
+                } else {
+                    alert(data.message || "Failed to send the report.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An unexpected error occurred.");
+            }
         });
     });
 
@@ -148,18 +166,20 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".delete-button").forEach((button) => {
         button.addEventListener("click", () => {
             const postId = button.getAttribute("data-post-id");
-            fetch("culture.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: `delete_post=1&post_id=${postId}`,
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.success) {
-                        alert("Post deleted!");
-                        location.reload();
-                    }
-                });
+            if (confirm("Are you sure you want to delete this reply?")) {
+                fetch("culture.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: `delete_post=1&post_id=${postId}`,
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.success) {
+                            alert("Post deleted!");
+                            location.reload();
+                        }
+                    });
+            }
         });
     });
 
@@ -192,8 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const closeModal = () => {
                 editModal.remove();// Remove modal from DOM
             };
-
-
             editModal.querySelector(".editClose").addEventListener("click", closeModal);
 
             // Close modal on outside click
@@ -231,42 +249,6 @@ document.addEventListener("DOMContentLoaded", () => {
             editModal.style.display = "block";
         });
     });
-
-    
-
-    document.querySelectorAll(".like-button").forEach((button) => {
-        button.addEventListener("click", async () => {
-            const postId = button.getAttribute("data-post-id");
-
-            try {
-                const response = await fetch("culture.php", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: `like_post=1&post_id=${postId}`,
-                });
-
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-
-                const data = await response.json();
-                // if (data.success) {
-                // 初回クリック時
-                const likeCount = button.querySelector(".like-count");
-                const heartIcon = button.querySelector(".heart-icon");
-
-                heartIcon.textContent = "❤️"; // ハートを埋める
-                likeCount.textContent = parseInt(likeCount.textContent) + 1;
-                // } else {
-                //     // 2回目以降のクリック時
-                //     alert(data.message); // "You have already liked this post."
-                // }
-            } catch (error) {
-                console.error("Error:", error);
-            }
-        });
-    });
-
 
     // Edit Reply
     document.querySelectorAll(".reply-edit-button").forEach((button) => {
@@ -312,88 +294,29 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Report Reply
-    document.querySelectorAll(".reply-report-button").forEach((button) => {
-        button.addEventListener("click", () => {
-            const replyId = button.getAttribute("data-reply-id");
-            fetch("culture.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: `report_reply=1&reply_id=${replyId}`,
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.success) {
-                        alert("Reply reported!");
-                    }
-                });
-        });
-    });
+    // document.querySelectorAll(".reply-report-button").forEach((button) => {
+    //     button.addEventListener("click", async () => {
+    //         const replyId = button.getAttribute("data-reply-id");
+    //         try {
+    //             const response = await fetch("culture.php", {
+    //                 method: "POST",
+    //                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    //                 body: `report_reply=1&reply_id=${replyId}`,
+    //             });
+    //             const data = await response.json();
+    //             if (data.success) {
+    //                 alert("Reply report has been sent.");
+    //             } else {
+    //                 alert(data.message || "Failed to report the reply.");
+    //             }
+    //         } catch (error) {
+    //             console.error("Error:", error);
+    //             alert("An unexpected error occurred.");
+    //         }
+    //     });
+    // });
 
-
-    // Reply-to-reply button functionality
-    document.querySelectorAll(".reply-reply-button").forEach((button) => {
-        button.addEventListener("click", () => {
-            const replyId = button.getAttribute("data-reply-id");
-            const replyModal = document.getElementById(`replyModal-${replyId}`);
-
-            // Show the modal
-            replyModal.style.display = "block";
-
-            // Close modal on close button click
-            replyModal.querySelector(".replyClose").addEventListener("click", () => {
-                replyModal.style.display = "none";
-            });
-
-            // Close modal on outside click
-            window.addEventListener("click", (event) => {
-                if (event.target === replyModal) {
-                    replyModal.style.display = "none";
-                }
-            });
-
-            // Submit reply-to-reply form via AJAX
-            const replyForm = document.getElementById(`replyForm-${replyId}`);
-            if (!replyForm.hasAttribute("data-event-added")) {
-                replyForm.setAttribute("data-event-added", "true");
-                replyForm.addEventListener("submit", async (e) => {
-                    e.preventDefault();
-
-                    const formData = new FormData(replyForm);
-                    try {
-                        const response = await fetch("culture.php", {
-                            method: "POST",
-                            body: formData,
-                        });
-
-                        if (!response.ok) {
-                            throw new Error("Network response was not ok");
-                        }
-
-                        const data = await response.json();
-                        if (data.success) {
-                            const repliesContainer = document.querySelector(
-                                `.reply[data-reply-id="${replyId}"] .replies`
-                            );
-                            const newReply = document.createElement("div");
-                            newReply.classList.add("reply");
-                            newReply.innerHTML = `<p>${formData.get("content")}</p>`;
-                            repliesContainer.appendChild(newReply);
-
-                            replyForm.reset();
-                            replyModal.style.display = "none";
-                        } else {
-                            console.error("Reply-to-reply failed:", data.message);
-                            alert(data.message);
-                        }
-                    } catch (error) {
-                        console.error("Error:", error);
-                        alert("An unexpected error occurred. Please try again later.");
-                    }
-                }, { once: true });
-            }
-        });
-    });
-
+    // Handle fetching top posts and refreshing the ranking section
     async function fetchTopPosts() {
         try {
             const response = await fetch("culture.php?action=get_top_posts");
@@ -409,6 +332,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const listItem = document.createElement("li");
                 listItem.innerHTML = `
                     <strong>Title:</strong> ${post.title}<br>
+                    <strong>Content:</strong> ${post.content}<br>
                     <strong>Hashtags:</strong> ${post.hashtags}<br>
                     <strong>Likes:</strong> ${post.like_no}
                 `;
@@ -419,40 +343,43 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Refresh the ranking every 30 seconds
-    setInterval(fetchTopPosts, 30000);
+    // Refresh the ranking every 10 seconds
+    setInterval(fetchTopPosts, 10000);
 
     // Initial fetch on page load
     fetchTopPosts();
 
-    
 
+    // Filter posts by date using a dropdown menu
     document.getElementById("dateFilter").addEventListener("change", async (event) => {
-        const order = event.target.value; // "new" or "old"
-    
+        const order = event.target.value; // Get the selected value: "new" or "old"
+
         try {
+            // Fetch posts from the server based on the selected order
             const response = await fetch(`culture.php?action=filter_posts&order=${order}`);
             if (!response.ok) {
-                throw new Error("Failed to fetch posts");
+                throw new Error("Failed to fetch posts");// Handle unsuccessful responses
             }
-    
-            const posts = await response.json();
+
+            const posts = await response.json();// Parse the JSON response
             const postsSection = document.getElementById("postsSection");
-            postsSection.innerHTML = ""; // Clear current posts
-    
+            postsSection.innerHTML = ""; // Clear the current list of posts
+
+            // Iterate over the filtered posts and dynamically generate HTML for each
             posts.forEach(post => {
                 const postElement = document.createElement("div");
                 postElement.classList.add("post");
                 postElement.setAttribute("data-post-id", post.post_id);
-    
+
+                // Create HTML structure for each post
                 let postHTML = `
                     <div class='post-user-info'>
                         <p>User ID: ${post.user_id}, Username: ${post.username}, Created at: ${post.created_at}</p>
                     </div>
                     <h3>${post.title}</h3>
                     <p>${post.content}</p>
-                    <p><strong>Hashtags:</strong> ${post.hashtags}</p>
-                    <p><strong>Likes:</strong> ${post.like_no}</p>
+                    <p class='hashtag'>${post.hashtags}</p>
+                    
                     ${post.post_image ? `<img src="data:image/jpeg;base64,${post.post_image}" alt="Post Image" style="max-width: 100%; height: auto;">` : ''}
                     <div class='post-actions'>
                         <button class='like-button' data-post-id='${post.post_id}'>
@@ -466,7 +393,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                     <div class='replies'>
                 `;
-    
+
+                // Include replies for the current post
                 post.replies.forEach(reply => {
                     postHTML += `
                         <div class='reply' data-reply-id='${reply.reply_id}'>
@@ -484,17 +412,65 @@ document.addEventListener("DOMContentLoaded", () => {
                         </div>
                     `;
                 });
-    
-                postHTML += `</div>`; // Close replies
-                postElement.innerHTML = postHTML;
-                postsSection.appendChild(postElement);
+
+                postHTML += `</div>`; // Close the replies section
+                postElement.innerHTML = postHTML;// Add the generated HTML to the post element
+                postsSection.appendChild(postElement);// Append the post to the posts section
             });
         } catch (error) {
-            console.error("Error fetching filtered posts:", error);
+            console.error("Error fetching filtered posts:", error);// Log any errors
         }
     });
-    
 
+    // Handle searching posts by keywords or hashtags
+    document.getElementById("searchButton").addEventListener("click", async () => {
+        const query = document.getElementById("searchBar").value;// Get the user's search input
 
+        try {
+            // Send a request to search for posts matching the query
+            const response = await fetch(`culture.php?action=search_posts&query=${encodeURIComponent(query)}`);
+            if (!response.ok) {
+                throw new Error("Failed to fetch search results");// Handle unsuccessful responses
+            }
+
+            const posts = await response.json();// Parse the JSON response
+            const postsSection = document.getElementById("postsSection");
+            postsSection.innerHTML = ""; // Clear the current list of posts
+
+            // Iterate over the search results and dynamically generate HTML for each
+            posts.forEach(post => {
+                const postElement = document.createElement("div");
+                postElement.classList.add("post");
+                postElement.setAttribute("data-post-id", post.post_id);
+
+                // Create HTML structure for each post
+                let postHTML = `
+                <div class='post-user-info'>
+                    <p>User ID: ${post.user_id}, <a href='../user/user.php?user_id={$row['user_id']}' style='text-decoration: none; color: blue;'>
+                     Username: ${post.username}</a>, Created at: ${post.created_at}</p>
+                </div>
+                <h3>${post.title}</h3>
+                <p>${post.content}</p>
+                <p class='hashtag'>${post.hashtags}</p>
+                ${post.post_image ? `<img src="data:image/jpeg;base64,${post.post_image}" alt="Post Image" style="max-width: 100%; height: auto;">` : ''}
+                <div class='post-actions'>
+                    <button class='like-button' data-post-id='${post.post_id}'>
+                        <span class='heart-icon'>🤍</span>
+                        <span class='like-count'>${post.like_no}</span>
+                    </button>
+                    <button class='edit-button' data-post-id='${post.post_id}'>Edit</button>
+                    <button class='reply-button' data-post-id='${post.post_id}'>Reply</button>
+                    <button class='delete-button' data-post-id='${post.post_id}'>Delete</button>
+                    <button class='report-button' data-post-id='${post.post_id}'>Report</button>
+                </div>
+            `;
+
+                postElement.innerHTML = postHTML;// Add the generated HTML to the post element
+                postsSection.appendChild(postElement);// Append the post to the posts section
+            });
+        } catch (error) {
+            console.error("Error fetching search results:", error);// Log any errors
+        }
+    });
 
 });
