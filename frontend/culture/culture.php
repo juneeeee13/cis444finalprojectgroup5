@@ -30,7 +30,6 @@ if (!isset($_SESSION['liked_posts'])) {
     $_SESSION['liked_posts'] = [];
 }
 
-
 // Handle creating a new post
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post'])) {
     // Escape user inputs to prevent SQL injection
@@ -666,7 +665,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
     </footer>
 
 </body>
-
 
 </html>
 
