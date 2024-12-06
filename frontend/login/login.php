@@ -6,7 +6,7 @@ session_start(); //Put this at the top of the file.
 //If a user is already logged in and tries to go to the login page, take them to settings where the logout button is.
 //Hmmm...if they go to login.html, it is not the same as login.php though and this code will likely not execute.
 if (isset($_SESSION['user_id']) || isset($_SESSION['username'])) {
-    header("Location: ../settings/settings.html");//code likely not executing because people going to login.html instead of login.php
+    header("Location: ../settings/settings.php");//code likely not executing because people going to login.html instead of login.php
 }
 
 
