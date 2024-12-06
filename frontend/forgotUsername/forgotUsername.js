@@ -1,6 +1,6 @@
 var dom = document.getElementById("forgotUsernameForm");
 
-dom.emailInput.addEventListener("change", validateEmail);
+dom.email.addEventListener("change", validateEmail);
 
 dom.addEventListener("submit", verifyEmail);
 
